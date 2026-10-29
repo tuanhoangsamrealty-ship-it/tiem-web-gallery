@@ -67,7 +67,7 @@ svg{display:block}
 .hsub b{color:#fff;font-weight:700}
 
 /* filters (pinned under the ticker) */
-.filters{position:sticky;top:var(--toph);z-index:25;transition:background .25s}
+.filters{position:relative;z-index:25}
 .filters.solid{background:#A50A1F}
 .frow{display:flex;align-items:center;max-width:1240px;margin:0 auto}
 .chips{flex:1;min-width:0;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:8px var(--gx) 10px}
@@ -325,6 +325,10 @@ body::before{display:none}
   .tier{padding:28px 26px}
   .tier .for{min-height:2.9em}
 }
+.endwrap{background:#F6F1EC;border-top:1px solid #EFE7DF;margin-top:56px}
+.endwrap .end{padding-top:56px}
+.endwrap .gift{background:#fff}
+@media (min-width:900px){.endwrap{margin-top:80px}.endwrap .end{padding-top:80px}}
 </style>
 </head><body>
 
@@ -352,7 +356,7 @@ body::before{display:none}
   <div class="cbar"><span id="cPos"></span><i><b id="prog"></b></i></div>
 </main>
 
-<section class="end" id="pricing" aria-label="Bảng giá">
+<div class="endwrap"><section class="end" id="pricing" aria-label="Bảng giá">
   <p class="eyebrow">Bảng giá</p>
   <h2>Chọn gói <em>hợp với shop bạn</em></h2>
   <p class="lead">Giá cho 1 trang website. Ngành nào cũng làm được, làm theo mẫu có sẵn hoặc mẫu bạn gửi.</p>
@@ -360,7 +364,7 @@ body::before{display:none}
   <div class="tiers" id="tiers"></div>
   <div class="zrow"><a class="zbtn" href="https://zalo.me/0948332395" target="_blank" rel="noopener">Hỏi thêm qua <b>Zalo</b></a>
     <span class="znum">0948 332 395</span><button class="copy" type="button" data-copy="0948332395">Sao chép số</button></div>
-</section>
+</section></div>
 
 <button class="savebar" type="button" id="saveBar" hidden><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span>Đã lưu <b id="sbN">0</b> mẫu</span><span class="go">Gửi qua Zalo →</span></button>
 
@@ -465,7 +469,7 @@ $('chips').addEventListener('click',e=>{
   const nb=$('chips').querySelector(`[data-f="${filter}"]`); nb&&nb.scrollIntoView({inline:'center',block:'nearest'});
 });
 const topH=()=>$('tick').offsetHeight;              /* pinned ticker */
-const pinH=()=>topH()+$('filters').offsetHeight;   /* everything pinned once the filters stick */
+const pinH=()=>topH();                             /* only the ticker is pinned */
 
 /* ---------- carousel ---------- */
 const stage=$('stage'), track=$('track');
@@ -587,7 +591,6 @@ if('IntersectionObserver' in window) new IntersectionObserver(es=>{C.visible=es[
 
 /* filters stick under the ticker */
 function onScroll(){
-  $('filters').classList.toggle('solid',$('filters').getBoundingClientRect().top<=topH()+1);
 }
 addEventListener('scroll',onScroll,{passive:true});
 
