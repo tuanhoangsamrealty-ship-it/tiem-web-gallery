@@ -292,6 +292,39 @@ body::before{display:none}
   .hotline b{font-size:22px}
   .price{font-size:17px;margin-top:10px}.price b{font-size:32px}
 }
+
+/* ---------- pricing, SaaS style ---------- */
+.end{max-width:1180px;padding:64px var(--gx) 130px;gap:12px}
+.end>.eyebrow{margin:0;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.end h2{font-size:clamp(32px,9vw,48px)}
+.end>.lead{margin:0;color:var(--dim);font-size:14.5px;line-height:1.5;max-width:560px}
+.gift{display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:14px;background:#FFF1F2;font-size:14px;line-height:1.4;margin-top:6px}
+.gift svg{width:22px;height:22px;flex:none;color:var(--red)}
+.gift b{color:var(--red)}
+.tiers{display:grid;gap:18px;margin-top:14px}
+.tier{position:relative;display:flex;flex-direction:column;gap:14px;padding:24px 20px 22px;border-radius:20px;background:#fff;border:1px solid #E9E4DE}
+.tier.rec{border:2px solid var(--red);box-shadow:0 24px 48px -26px rgba(200,16,46,.55)}
+.rbadge{position:absolute;top:-12px;left:20px;padding:4px 11px;border-radius:999px;background:var(--red);color:#fff;font-size:12px;font-weight:800}
+.tier h3{margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em}
+.tier .for{margin:-6px 0 0;font-size:13.5px;line-height:1.45;color:var(--dim)}
+.tprice{display:flex;align-items:baseline;gap:6px}
+.tprice b{font-family:var(--display);font-weight:800;font-size:44px;line-height:1;letter-spacing:-.04em;color:var(--red)}
+.tprice span{font-size:13.5px;font-weight:600;color:var(--dim)}
+.tbtn{height:50px;border-radius:12px;border:1.5px solid var(--ink);font-weight:800;font-size:15px}
+.tbtn:hover{background:#F6F3F0}
+.tier.rec .tbtn{background:var(--red);border-color:var(--red);color:#fff}
+.tier.rec .tbtn:hover{background:#B00D28}
+.thead{margin:2px 0 0;padding-top:16px;border-top:1px solid #EFEAE4;font-size:13px;font-weight:800}
+.tier ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.tier li{position:relative;padding-left:28px;font-size:14.5px;line-height:1.45}
+.tier li::before{content:"";position:absolute;left:0;top:2px;width:18px;height:18px;border-radius:50%;background:#FFE4E7}
+.tier li::after{content:"";position:absolute;left:6.5px;top:6px;width:4px;height:8px;border:solid var(--red);border-width:0 2px 2px 0;transform:rotate(45deg)}
+@media (min-width:900px){
+  .end{padding-top:96px}
+  .tiers{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
+  .tier{padding:28px 26px}
+  .tier .for{min-height:2.9em}
+}
 </style>
 </head><body>
 
@@ -319,11 +352,13 @@ body::before{display:none}
   <div class="cbar"><span id="cPos"></span><i><b id="prog"></b></i></div>
 </main>
 
-<section class="end" aria-label="Bảng giá">
-  <h2>Chọn mẫu.<br><em>Làm theo shop bạn.</em></h2>
-  <p>Giá cho 1 trang website. Ngành nào cũng làm được: nhắn ngành và tên shop, Tiệm Web gợi ý mẫu hợp nhất.</p>
-  <div class="plans" id="plans"></div>
-  <div class="zrow"><a class="zbtn" href="https://zalo.me/0948332395" target="_blank" rel="noopener">Nhắn <b>Zalo</b></a>
+<section class="end" id="pricing" aria-label="Bảng giá">
+  <p class="eyebrow">Bảng giá</p>
+  <h2>Chọn gói <em>hợp với shop bạn</em></h2>
+  <p class="lead">Giá cho 1 trang website. Ngành nào cũng làm được, làm theo mẫu có sẵn hoặc mẫu bạn gửi.</p>
+  <div class="gift"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg><span>Gói nào cũng tặng: <b>demo miễn phí mang tên shop bạn</b> + <b>5 ảnh quảng cáo</b></span></div>
+  <div class="tiers" id="tiers"></div>
+  <div class="zrow"><a class="zbtn" href="https://zalo.me/0948332395" target="_blank" rel="noopener">Hỏi thêm qua <b>Zalo</b></a>
     <span class="znum">0948 332 395</span><button class="copy" type="button" data-copy="0948332395">Sao chép số</button></div>
 </section>
 
@@ -716,8 +751,9 @@ requestAnimationFrame(tick);
 
 /* ---------- actions ---------- */
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-cstep],[data-save],[data-copy],[data-vstep],[data-vsave],[data-vshare],[data-vpick]'); if(!t) return;
+  const t=e.target.closest('[data-cstep],[data-plan],[data-save],[data-copy],[data-vstep],[data-vsave],[data-vshare],[data-vpick]'); if(!t) return;
   if(t.dataset.cstep){hold();goTo(Math.round(C.pos)+(+t.dataset.cstep));}
+  else if(t.dataset.plan){plan=t.dataset.plan; const c=shown[cur()]; openSheet(saved.length?saved.slice():[c?c.code:DATA.items[0].code]);}
   else if(t.dataset.save) toggleSave(t.dataset.save);
   else if(t.dataset.copy) copy(t.dataset.copy,'Đã sao chép số Zalo');
   else if(t.dataset.vstep) stepV(+t.dataset.vstep);
@@ -762,7 +798,23 @@ function copy(text,ok){
 let tt; function toast(m){const t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2200);}
 
 /* ---------- boot ---------- */
-$('plans').innerHTML=PLANS.map(p=>`<div class="plan"><b>${p.name}</b><strong>${p.price}</strong><p>${p.desc}</p></div>`).join('');
+/* pricing tiers: each upper tier lists only what it adds */
+const TIERS=[
+  {id:'co-ban',name:'Cơ bản',price:'599K',who:'Cho shop cần một trang web đẹp, gọn để gửi khách xem.',
+   feats:['1 trang landing page theo mẫu có sẵn','Đổi tên, logo, màu, ảnh và nội dung theo shop','Trình bày sản phẩm, dịch vụ, bảng giá theo quy trình bán hàng','Hiển thị đẹp trên điện thoại và máy tính','Nút gọi điện, nhắn Zalo, chỉ đường Google Maps','Form khách để lại thông tin, gửi về Google Sheets']},
+  {id:'nang-cao',name:'Nâng cao',price:'899K',rec:true,who:'Cho shop muốn trang web mang đúng cá tính thương hiệu.',head:'Tất cả trong gói Cơ bản, thêm:',
+   feats:['Thiết kế riêng theo tinh thần dịch vụ và thương hiệu','Kể chuyện bằng website: câu chuyện, đội ngũ, cảm nhận khách hàng','Bố cục và hiệu ứng chuyển động độc đáo, không đụng hàng','Thư viện ảnh, video giới thiệu dịch vụ']},
+  {id:'cao-cap',name:'Cao cấp',price:'1.299K',who:'Cho thương hiệu muốn nổi bật và cần tư vấn chuyên sâu.',head:'Tất cả trong gói Nâng cao, thêm:',
+   feats:['Thiết kế độc quyền, không dùng lại mẫu có sẵn','Tư vấn sâu cách kể chuyện và nội dung','Trải nghiệm đặt lịch tinh tế: chọn dịch vụ, ngày, giờ','Đồng bộ màu, chữ, hình ảnh để tăng nhận diện thương hiệu']},
+];
+$('tiers').innerHTML=TIERS.map(t=>`<article class="tier${t.rec?' rec':''}">
+  ${t.rec?'<span class="rbadge">Đề xuất</span>':''}
+  <h3>${t.name}</h3><p class="for">${t.who}</p>
+  <div class="tprice"><b>${t.price}</b><span>/ 1 trang website</span></div>
+  <button class="tbtn" type="button" data-plan="${t.id}">Chọn gói ${t.name}</button>
+  <p class="thead">${t.head||'Bao gồm:'}</p>
+  <ul>${t.feats.map(f=>`<li>${f}</li>`).join('')}</ul>
+</article>`).join('');
 $('dPlans').innerHTML=PLANS.map(p=>`<div class="dplan"><small>${p.name.replace('Gói ','')}</small><b>${p.price}</b></div>`).join('');
 /* the ticker: every kind of shop we build for */
 const TRADES=['Spa','Nail','Salon tóc','Barber','Nha khoa','Phòng khám','Thẩm mỹ viện','Da liễu','Yoga','Gym','Trung tâm tiếng Anh','Lớp học','Mầm non','Bất động sản','Homestay','Khách sạn','Du lịch','Nhà hàng','Quán cà phê','Tiệm bánh','Trà sữa','Mỹ phẩm','Thời trang','Trang sức','Nội thất','Kiến trúc','Studio ảnh','Cưới hỏi','Hoa tươi','Thú cưng','Nông sản','Gốm sứ','Xe điện','Sửa xe','Luật sư','Kế toán','In ấn','Sự kiện'];
