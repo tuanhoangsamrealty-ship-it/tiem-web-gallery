@@ -50,7 +50,8 @@ svg{display:block}
 .tbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px var(--gx) 4px;max-width:1240px;margin:0 auto}
 .mark{font-family:var(--display);font-weight:800;font-size:23px;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:baseline;gap:6px}
 .mark span{color:var(--gold)}
-.mark small{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--dim)}
+.mark small{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--dim);white-space:nowrap}
+@media (max-width:380px){.mark small{display:none}}
 .zpill{height:36px;padding:0 14px 0 5px;border-radius:999px;background:var(--gold);color:var(--gold-ink);display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;text-decoration:none;white-space:nowrap;box-shadow:0 8px 20px rgba(60,0,8,.3)}
 .zpill b{height:26px;padding:0 8px;border-radius:999px;background:#0068FF;color:#fff;font-size:11.5px;display:grid;place-items:center}
 .zpill .num{display:none}
@@ -77,34 +78,31 @@ svg{display:block}
 .zmini{display:none;flex:none;height:34px;padding:0 12px;margin:0 var(--gx) 2px -8px;border-radius:999px;background:#0068FF;color:#fff;font-weight:800;font-size:13px;align-items:center;text-decoration:none;box-shadow:-10px 0 14px 4px #A50A1F}
 .filters.solid .zmini{display:flex}
 
-/* the wall */
-.wall{display:flex;gap:var(--gap);align-items:flex-start;padding:4px var(--gx) 0;max-width:1240px;margin:0 auto}
-.col{flex:1;min-width:0;display:flex;flex-direction:column;gap:22px}
-.col:nth-child(even){padding-top:var(--off)}
-.tile{opacity:0;transform:translateY(14px);transition:opacity .35s ease,transform .4s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0ms)}
-.tile.in{opacity:1;transform:none}
-.tw{display:block;width:100%;position:relative;text-align:left;border-radius:12px;overflow:hidden;background:#fff;container-type:inline-size;
-  box-shadow:0 0 0 2px rgba(255,255,255,.92),0 10px 22px -10px rgba(60,0,8,.6);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
-.tw::before{content:"";position:absolute;inset:0;z-index:2;border-radius:inherit;box-shadow:inset 0 0 0 3px #fff;opacity:0;transition:opacity .25s;pointer-events:none}
-.tile.on .tw::before{opacity:1}
+/* the carousel: one big sample in front, the next ones step back in depth */
+.stage{position:relative;max-width:1240px;margin:4px auto 0;perspective:1500px;touch-action:pan-y;-webkit-user-select:none;user-select:none;overflow:hidden}
+.card{position:absolute;left:50%;top:10px;width:var(--cw,300px);margin-left:calc(var(--cw,300px) / -2);will-change:transform;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.card::after{content:"";position:absolute;inset:0;border-radius:14px;background:#2A0207;opacity:var(--shade,0);pointer-events:none}
+.tw{display:block;width:100%;position:relative;text-align:left;border-radius:14px;overflow:hidden;background:#fff;container-type:inline-size;-webkit-user-drag:none;
+  box-shadow:0 0 0 2px rgba(255,255,255,.92),0 22px 44px -16px rgba(40,0,6,.7)}
 .wbar{position:relative;display:flex;align-items:center;gap:clamp(4px,1.1cqw,7px);height:clamp(14px,4.2cqw,32px);padding:0 clamp(6px,2.2cqw,14px);background:#F3F0EA;flex:none}
 .wbar i{width:clamp(5px,1.35cqw,10px);height:clamp(5px,1.35cqw,10px);border-radius:50%;background:#D5D0C8}
-.wbar span{position:absolute;left:50%;transform:translateX(-50%);font-size:clamp(8px,1.55cqw,12px);font-weight:600;color:#5C574F;white-space:nowrap;max-width:60%;overflow:hidden;text-overflow:ellipsis}
-.tw .wbar span{display:none}
-.tpane{position:relative;display:block;aspect-ratio:3/4;overflow:hidden;background:#EFEBE4 no-repeat center top/cover}
-.tpane img{display:block;width:100%;height:auto;will-change:transform;opacity:0;transition:opacity .35s}
+.wbar span{position:absolute;left:50%;transform:translateX(-50%);font-size:clamp(8px,2.6cqw,12px);font-weight:600;color:#5C574F;white-space:nowrap;max-width:60%;overflow:hidden;text-overflow:ellipsis}
+.tpane{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:#EFEBE4 no-repeat center top/cover}
+.tpane img{display:block;width:100%;height:auto;opacity:0;transition:opacity .3s;-webkit-user-drag:none;pointer-events:none}
 .tpane img.ok{opacity:1}
 .tpane img.land{position:absolute;inset:0;height:100%;object-fit:cover;object-position:left top}
-.tw::after{content:attr(data-cta);position:absolute;left:50%;bottom:10px;transform:translate(-50%,10px);opacity:0;white-space:nowrap;
-  padding:6px 12px;border-radius:999px;background:rgba(26,6,9,.84);color:#fff;font-weight:800;font-size:12px;box-shadow:0 8px 20px rgba(0,0,0,.3);z-index:3;transition:opacity .25s,transform .3s cubic-bezier(.2,.8,.2,1)}
-.tile.on .tw{transform:translateY(-3px) scale(1.03)}
-.tile.on .tw::after{opacity:1;transform:translate(-50%,0)}
-.tmeta{display:flex;align-items:flex-start;gap:8px;margin-top:11px}
-.tmeta>div{flex:1;min-width:0}
-.tmeta small{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,.66)}
-.tmeta b{display:block;font-weight:700;font-size:15px;line-height:1.25;margin-top:1px}
-.heart{width:36px;height:36px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--glass);border:1px solid var(--hair)}
-.heart svg{width:17px;height:17px}
+.cta{position:absolute;left:50%;bottom:12px;transform:translate(-50%,8px);opacity:0;white-space:nowrap;padding:7px 14px;border-radius:999px;background:rgba(26,6,9,.84);color:#fff;font-weight:700;font-size:13px;box-shadow:0 8px 20px rgba(0,0,0,.3);transition:opacity .25s,transform .3s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.card.cur .cta{opacity:1;transform:translate(-50%,0)}
+.cnav{display:none}
+.cap{display:flex;align-items:center;gap:12px;max-width:min(var(--cw,300px) + 40px,100%);margin:6px auto 0;padding:0 var(--gx)}
+.capt{flex:1;min-width:0;transition:opacity .2s}
+.capt small{display:block;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.66)}
+.capt b{display:block;font-weight:700;font-size:18px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cbar{display:flex;align-items:center;gap:10px;max-width:min(var(--cw,300px) + 40px,100%);margin:10px auto 0;padding:0 var(--gx);font-size:12px;font-weight:700;color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums}
+.cbar i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.18);overflow:hidden}
+.cbar i b{display:block;height:100%;background:#fff;transform-origin:left;transform:scaleX(0)}
+.heart{width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--glass);border:1px solid var(--hair)}
+.heart svg{width:19px;height:19px}
 [aria-pressed="true"].heart,.vbtn[aria-pressed="true"],.dsq[aria-pressed="true"]{background:#fff;color:var(--red);border-color:#fff}
 [aria-pressed="true"] svg path{fill:currentColor}
 
@@ -206,22 +204,26 @@ svg{display:block}
 .note button{color:var(--red);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 82px);transform:translateX(-50%);z-index:80;padding:10px 16px;border-radius:999px;background:var(--gold);color:var(--gold-ink);font-weight:700;font-size:14px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 
-@media (min-width:640px){:root{--gap:20px;--off:80px}}
 @media (min-width:1024px){
-  :root{--gx:40px;--gap:26px;--off:110px}
+  :root{--gx:40px}
   .tbar{padding:16px var(--gx) 4px}
   .tick{height:38px}.tsm{display:none}.tlg{display:inline}.tlab{font-size:14px;padding-left:max(var(--gx),calc((100% - 1240px)/2 + var(--gx)))}.trk span{font-size:14.5px}
   .mark{font-size:26px}
   .zpill{height:42px;font-size:15px}.zpill .num{display:inline}.zpill .txt{display:none}
   .hero{display:flex;align-items:flex-end;justify-content:space-between;gap:48px;padding:22px var(--gx) 24px}
   .hhead{justify-content:flex-start;gap:28px;align-items:center}
-  .hero h1{font-size:72px}
+  .hero h1{font-size:64px;white-space:nowrap}.hero h1 br{display:none}.chip{margin:0 0 0 .2em}
+  .stage{max-width:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .tpane{aspect-ratio:1/1}
   .tag{font-size:12px;padding:8px 16px 10px}.tag strong{font-size:40px}
   .hsub{max-width:400px;font-size:15px;margin:0 0 6px;text-align:right}
   .chips{padding:10px var(--gx) 12px}
   .fc{height:40px;font-size:14.5px;padding:0 18px}
-  .col{gap:34px}
-  .tmeta b{font-size:16.5px}
+  .cnav{display:grid;position:absolute;top:50%;z-index:200;width:54px;height:54px;margin-top:-27px;border-radius:50%;place-items:center;background:rgba(94,7,16,.7);border:1px solid var(--hair);color:#fff}
+  .cnav:hover{background:rgba(255,255,255,.18)}
+  .cnav svg{width:24px;height:24px}
+  .cnav.prev{left:calc(50% - var(--cw) / 2 - 86px)}.cnav.next{right:calc(50% - var(--cw) / 2 - 86px)}
+  .capt b{font-size:22px}
   .end{padding-top:100px}
   .sheet-wrap{align-items:center}
   .sheet{border-radius:22px;max-height:88%;max-width:600px}
@@ -259,7 +261,15 @@ svg{display:block}
 
 <nav class="filters" id="filters" aria-label="Lọc theo ngành"><div class="frow"><div class="chips" id="chips"></div><a class="zmini" href="https://zalo.me/0948332395" target="_blank" rel="noopener" aria-label="Nhắn Zalo Tiệm Web">Zalo</a></div></nav>
 
-<main class="wall" id="wall" aria-label="Các mẫu landing page"></main>
+<main aria-label="Các mẫu landing page">
+  <div class="stage" id="stage" aria-roledescription="băng chuyền">
+    <div id="track"></div>
+    <button class="cnav prev" type="button" data-cstep="-1" aria-label="Mẫu trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="cnav next" type="button" data-cstep="1" aria-label="Mẫu sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+  <div class="cap"><div class="capt" id="capt" aria-live="polite"><small id="cKick"></small><b id="cName"></b></div><button class="heart" type="button" id="cSave" data-save="" aria-pressed="false" aria-label="Lưu mẫu này"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button></div>
+  <div class="cbar"><span id="cPos"></span><i><b id="prog"></b></i></div>
+</main>
 
 <section class="end" aria-label="Bảng giá">
   <h2>Chọn mẫu.<br><em>Làm theo shop bạn.</em></h2>
@@ -367,91 +377,139 @@ function renderChips(){
 }
 $('chips').addEventListener('click',e=>{
   const b=e.target.closest('[data-f]'); if(!b||b.dataset.f===filter) return;
-  filter=b.dataset.f; renderChips(); buildWall();
+  filter=b.dataset.f; renderChips(); buildCarousel(); hold(1500);
   const y=$('filters').offsetTop-topH(); if(scrollY>y) scrollTo(0,y);
   const nb=$('chips').querySelector(`[data-f="${filter}"]`); nb&&nb.scrollIntoView({inline:'center',block:'nearest'});
 });
 const topH=()=>$('tick').offsetHeight;              /* pinned ticker */
 const pinH=()=>topH()+$('filters').offsetHeight;   /* everything pinned once the filters stick */
 
-/* ---------- wall ---------- */
-const nColsFor=()=>innerWidth<640?2:innerWidth<1024?3:4;
-let nCols=0, rio, lio;
-function tileHTML(i,k){
-  const cta=hoverMQ.matches?'Bấm để xem trọn trang':'Chạm để xem trọn trang';
-  return `<article class="tile" data-code="${i.code}" style="--d:${(k%nCols)*50}ms">
-    <button class="tw" type="button" data-open="${i.code}" data-cta="${cta}" aria-label="Xem trọn trang mẫu ${i.name}">
-      <span class="wbar"><i></i><i></i><i></i></span>
-      <span class="tpane" style="background-color:${i.tone};background-image:url(${PH[i.code]})"><img data-src="img/${i.code}-p.webp" alt="Mẫu ${i.name}"${i.land?' class="land"':''} width="480" height="${Math.round(480*i.h/i.w)}" decoding="async"></span>
-      </button>
-    <div class="tmeta"><div><small>${SHORT[i.cat]} · ${i.code}</small><b>${i.name}</b></div>
-      <button class="heart" type="button" data-save="${i.code}" aria-pressed="${isSaved(i.code)}" aria-label="Lưu mẫu ${i.name}">${HEART}</button></div>
-  </article>`;
+/* ---------- carousel ---------- */
+const stage=$('stage'), track=$('track');
+const DWELL=2300, MOVE=540;
+const C={pos:0,from:0,to:0,t0:0,dur:MOVE,anim:false,next:0,userUntil:0,hover:false,visible:true,drag:null,w:300,step:230,noClick:false};
+let cards=[];
+const N=()=>cards.length;
+const cur=()=>{const n=N();return n?((Math.round(C.pos)%n)+n)%n:0;};
+function wrapD(i,pos){let d=i-pos; const n=N(); if(n>1){d=((d%n)+n)%n; if(d>n/2) d-=n;} return d;}
+function cardHTML(i,k){
+  return `<div class="card" data-k="${k}" data-code="${i.code}">
+    <button class="tw" type="button" data-card="${k}" aria-label="Xem trọn trang mẫu ${i.name}" draggable="false">
+      <span class="wbar"><i></i><i></i><i></i><span>${slug(i.name)}</span></span>
+      <span class="tpane" style="background-color:${i.tone};background-image:url(${PH[i.code]})"><img alt="Mẫu ${i.name}"${i.land?' class="land"':''} width="${i.w}" height="${i.h}" decoding="async" draggable="false"></span>
+      <span class="cta">${hoverMQ.matches?'Bấm':'Chạm'} để xem trọn trang</span>
+    </button></div>`;
 }
-function buildWall(){
-  focusTile(null);
-  nCols=nColsFor();
-  shown=filter==='all'?mixFor(nCols):DATA.items.filter(i=>i.cat===filter); const C=Array.from({length:nCols},()=>[]);
-  shown.forEach((it,k)=>C[k%nCols].push(tileHTML(it,k)));
-  $('wall').innerHTML=C.map(c=>`<div class="col">${c.join('')}</div>`).join('');
-  rio&&rio.disconnect();
-  const tiles=document.querySelectorAll('.tile');
-  if(reduce||!('IntersectionObserver' in window)){tiles.forEach(t=>t.classList.add('in'));}
-  else{
-    rio=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');rio.unobserve(en.target);needPick=true;}}),{rootMargin:'0px 0px 6% 0px',threshold:.01});
-    tiles.forEach(t=>rio.observe(t));
-  }
-  lio&&lio.disconnect();
-  const load=im=>{if(im.src)return; im.addEventListener('load',()=>im.classList.add('ok'),{once:true}); im.src=im.dataset.src;};
-  if(!('IntersectionObserver' in window)){document.querySelectorAll('.tpane img').forEach(load);}
-  else{
-    lio=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){load(en.target);lio.unobserve(en.target);}}),{rootMargin:'0px 0px 100% 0px'});
-    document.querySelectorAll('.tpane img').forEach(im=>lio.observe(im));
-  }
-  needPick=true;
+function buildCarousel(keep){
+  shown=filter==='all'?mixFor(1):DATA.items.filter(i=>i.cat===filter);
+  track.innerHTML=shown.map(cardHTML).join(''); cards=[...track.children];
+  const k=keep?Math.max(0,shown.findIndex(i=>i.code===keep)):0;
+  Object.assign(C,{pos:k,from:k,to:k,anim:false});
+  sizeCarousel(); settle();
 }
-const tileOf=c=>document.querySelector(`.tile[data-code="${c}"]`);
-
-/* the lifted tile scrolls its own page */
-const pv={tile:null,img:null,off:0,dir:1,wait:0,max:0};
-function whenLoaded(im,cb){ if(im.complete&&im.naturalWidth) cb(); else im.addEventListener('load',cb,{once:true}); }
-function focusTile(t,startFrac){
-  if(pv.tile===t) return;
-  if(pv.tile){pv.tile.classList.remove('on'); const im=pv.img; im.style.transition='transform .8s cubic-bezier(.2,.8,.2,1)'; im.style.transform='translateY(0)';}
-  Object.assign(pv,{tile:t,img:t?t.querySelector('.tpane img'):null,off:0,dir:1,wait:performance.now()+650,max:0});
-  if(!t) return;
-  t.classList.add('on');
-  if(reduce||byCode[t.dataset.code].land) return;
-  pv.img.style.transition='none';
-  whenLoaded(pv.img,()=>{
-    if(pv.tile!==t) return;
-    pv.max=Math.max(0,pv.img.offsetHeight-pv.img.parentElement.clientHeight);
-    if(startFrac){pv.off=Math.min(pv.max,startFrac*pv.img.offsetHeight); pv.img.style.transform=`translateY(${-pv.off}px)`; pv.wait=performance.now()+900;}
+function sizeCarousel(){
+  /* phones: as wide as possible (the visitor scrolls a little); desktop: card + caption fit the first screen */
+  const phone=innerWidth<640, wide=innerWidth>=1024, ar=wide?1:1.25;   /* pane height / width (CSS .tpane aspect-ratio) */
+  const top=phone?pinH():Math.max(pinH(),stage.getBoundingClientRect().top+scrollY), room=innerHeight-top-(phone?120:110);
+  const w=Math.round(Math.max(phone?240:340,Math.min(stage.clientWidth*(phone?.8:wide?.44:.6),wide?600:520,room/(ar+.05))));
+  C.w=w; C.step=w*(phone?.76:.72);
+  document.documentElement.style.setProperty('--cw',w+'px');
+  stage.style.height=Math.round(w*ar+Math.max(14,Math.min(32,w*.042))+44)+'px';
+}
+/* image for a card: light preview first, the sharp one only for the card in front */
+function loadCard(i,sharp){
+  const c=cards[i], im=c&&c.querySelector('img'), it=shown[i]; if(!im) return;
+  if(!im.src){im.addEventListener('load',()=>im.classList.add('ok'),{once:true}); im.src=`img/${it.code}-p.webp`;}
+  if(sharp&&!SLOW&&!im.dataset.full){im.dataset.full='1'; const f=new Image(); f.src=`img/${it.code}.webp`;
+    (f.decode?f.decode():new Promise(r=>f.onload=r)).then(()=>{im.src=f.src;}).catch(()=>{});}
+}
+function render(){
+  cards.forEach((c,i)=>{
+    const d=wrapD(i,C.pos), a=Math.abs(d);
+    if(a>2.6){if(c._v!==0){c.style.visibility='hidden';c._v=0;}return;}
+    if(c._v!==1){c.style.visibility='';c._v=1;}
+    const s=Math.sign(d), near=Math.min(a,1), far=Math.max(0,a-1);
+    const x=s*(near*C.step+far*C.step*.5), sc=1-.17*near-.1*far, ry=-s*near*16;
+    c.style.transform=`translate3d(${x.toFixed(1)}px,0,${(-a*40).toFixed(1)}px) rotateY(${ry.toFixed(2)}deg) scale(${sc.toFixed(4)})`;
+    c.style.zIndex=String(100-Math.round(a*10));
+    c.style.setProperty('--shade',(near*.42+far*.2).toFixed(3));
+    c.style.opacity=a>2?((2.6-a)/.6).toFixed(3):'1';
+    loadCard(i,a<.5);
   });
 }
-let needPick=true, lastPick=0;
-function pickCenter(now){
-  if(now-lastPick<120) return; lastPick=now; needPick=false;
-  if(hoverMQ.matches||vOpen) return;
-  const cy=innerHeight*.5, th=pinH()+20; let best=null,bd=1e9;
-  document.querySelectorAll('.tile.in').forEach(t=>{
-    const r=t.getBoundingClientRect(); if(r.bottom<th+60||r.top>innerHeight-80) return;
-    const d=Math.abs((r.top+r.bottom)/2-cy); if(d<bd){bd=d;best=t;}
-  });
-  focusTile(best);
+function setCaption(){
+  const i=shown[cur()]; if(!i) return;
+  $('cKick').textContent=`${SHORT[i.cat]} · ${i.code}`; $('cName').textContent=i.name;
+  $('cPos').textContent=`${String(cur()+1).padStart(2,'0')} / ${String(N()).padStart(2,'0')}`;
+  $('cSave').dataset.save=i.code; $('cSave').setAttribute('aria-pressed',isSaved(i.code));
 }
-$('wall').addEventListener('pointerover',e=>{if(!hoverMQ.matches||vOpen)return;const t=e.target.closest('.tile');if(t)focusTile(t);});
-$('wall').addEventListener('pointerleave',()=>{if(hoverMQ.matches&&!vOpen)focusTile(null);});
+function settle(){
+  C.anim=false; C.pos=Math.round(C.pos); C.next=performance.now()+DWELL;
+  const k=cur(); cards.forEach((c,i)=>c.classList.toggle('cur',i===k));
+  render(); setCaption();
+  [k+1,k+2,k-1].forEach(j=>loadCard(((j%N())+N())%N(),false));
+}
+function goTo(target,dur=MOVE){
+  if(!N()) return; cards.forEach(c=>c.classList.remove('cur'));
+  Object.assign(C,{from:C.pos,to:target,t0:performance.now(),dur,anim:true});
+  $('capt').style.opacity=.35;
+}
+const easeIO=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+function carouselTick(now){
+  if(C.drag||!N()) return;
+  if(C.anim){
+    const p=Math.min(1,(now-C.t0)/C.dur); C.pos=C.from+(C.to-C.from)*easeIO(p); render();
+    if(p>=1){C.pos=C.to; settle(); $('capt').style.opacity=1;}
+    $('prog').style.transform='scaleX(0)';
+    return;
+  }
+  const run=!reduce&&!C.hover&&now>C.userUntil&&C.visible&&!document.hidden&&$('sheetWrap').hidden&&N()>1;
+  if(!run){C.next=Math.max(C.next,now+400); return;}
+  $('prog').style.transform=`scaleX(${Math.min(1,1-(C.next-now)/DWELL).toFixed(3)})`;
+  if(now>=C.next) goTo(C.pos+1);
+}
+const hold=(ms=3500)=>{C.userUntil=performance.now()+ms;};
+/* drag / swipe */
+stage.addEventListener('pointerdown',e=>{
+  if(e.button>0||e.target.closest('.cnav')) return;
+  C.drag={x:e.clientX,y:e.clientY,p0:C.pos,moved:false,id:e.pointerId,t:performance.now()};
+  if(C.anim){C.anim=false;} C.noClick=false;
+});
+stage.addEventListener('pointermove',e=>{
+  const g=C.drag; if(!g||e.pointerId!==g.id) return; const dx=e.clientX-g.x, dy=e.clientY-g.y;
+  if(!g.moved){
+    if(Math.abs(dx)>8&&Math.abs(dx)>Math.abs(dy)){g.moved=true; try{stage.setPointerCapture(g.id);}catch(_){} cards.forEach(c=>c.classList.remove('cur'));}
+    else if(Math.abs(dy)>10){C.drag=null; if(Math.round(C.pos)!==C.pos) goTo(Math.round(C.pos),300); return;}
+  }
+  if(g.moved){C.pos=g.p0-dx/C.step; render();}
+});
+function endDrag(e){
+  const g=C.drag; if(!g) return; C.drag=null; hold();
+  if(!g.moved){ if(Math.round(C.pos)!==C.pos) goTo(Math.round(C.pos),300); return; }
+  C.noClick=true; setTimeout(()=>C.noClick=false,60);
+  const dx=e.clientX-g.x, fast=Math.abs(dx)/Math.max(1,performance.now()-g.t)>.35;
+  let t=Math.round(C.pos); if(t===g.p0&&(Math.abs(dx)>30||fast)) t=g.p0+(dx<0?1:-1);
+  goTo(t,380);
+}
+stage.addEventListener('pointerup',endDrag); stage.addEventListener('pointercancel',endDrag);
+stage.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')C.hover=true;});
+stage.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){C.hover=false;C.next=performance.now()+1200;}});
+stage.addEventListener('click',e=>{
+  const b=e.target.closest('[data-card]'); if(!b||C.noClick) return;
+  const k=+b.dataset.card, d=wrapD(k,C.pos);
+  if(Math.abs(d)<.5&&!C.anim) openV(shown[k].code,cards[k]);
+  else {hold(); goTo(Math.round(C.pos+d));}
+});
+if('IntersectionObserver' in window) new IntersectionObserver(es=>{C.visible=es[0].isIntersecting;},{threshold:.3}).observe(stage);
 
-/* header turns solid once the page moves */
+/* filters stick under the ticker */
 function onScroll(){
-  needPick=true;
   $('filters').classList.toggle('solid',$('filters').getBoundingClientRect().top<=topH()+1);
 }
 addEventListener('scroll',onScroll,{passive:true});
 
 /* ---------- viewer ---------- */
-let vOpen=false, vList=[], vIdx=0, animating=false, pushed=false, lastTile=null;
+let vOpen=false, vList=[], vIdx=0, animating=false, pushed=false;
 const V={pos:0,dir:1,wait:0,userUntil:0,hover:false};
 const vWin=$('vWin'), vPane=$('vPane'), vImg=$('vImg');
 function placeWin(){
@@ -484,11 +542,9 @@ function fillV(k){
 function openV(code,fromTile){
   if(vOpen||animating) return;
   vList=shown; let k=vList.findIndex(i=>i.code===code);
-  if(k<0){filter='all';renderChips();buildWall();vList=shown;k=vList.findIndex(i=>i.code===code);if(k<0)return;}
+  if(k<0){filter='all';renderChips();buildCarousel(code);vList=shown;k=vList.findIndex(i=>i.code===code);if(k<0)return;}
   const tw=fromTile&&fromTile.querySelector('.tw');
-  let f=0; if(fromTile&&pv.tile===fromTile&&pv.max>0&&pv.img.offsetHeight) f=pv.off/pv.img.offsetHeight;
-  const from=tw&&tw.getBoundingClientRect();
-  focusTile(null); lastTile=fromTile||tileOf(code);
+  const f=0, from=tw&&tw.getBoundingClientRect();
   vOpen=true; fillV(k);
   $('vw').hidden=false; document.documentElement.classList.add('lock'); $('saveBar').hidden=true;
   const to=placeWin();
@@ -512,7 +568,10 @@ function closeV(){ if(!vOpen||animating) return; if(pushed){history.back();} els
 addEventListener('popstate',()=>{ if(vOpen){pushed=false; doClose();} });
 function doClose(){
   if(!vOpen) return;
-  const code=vList[vIdx].code, t=tileOf(code);
+  const code=vList[vIdx].code;
+  /* bring that sample to the front of the carousel so the window shrinks back into it */
+  const ck=shown.findIndex(i=>i.code===code), t=ck>=0?cards[ck]:null;
+  if(t){C.pos=Math.round(C.pos+wrapD(ck,C.pos)); settle(); hold(2500);}
   const f=vImg.offsetHeight?vPane.scrollTop/vImg.offsetHeight:0;
   const fx=document.querySelectorAll('#vw .vfx');
   const finish=()=>{
@@ -520,11 +579,10 @@ function doClose(){
     [vWin,$('vbg'),$('vw'),...fx].forEach(e=>e.getAnimations().forEach(a=>a.cancel()));
     vWin.style.transform='';
     document.documentElement.classList.remove('lock');
-    syncSaved(); needPick=true;
+    syncSaved();
   };
   if(t&&!reduce){
     const fromR=vWin.getBoundingClientRect(); vWin.style.transform=''; const to=placeWin();
-    t.classList.add('in');
     let r=t.getBoundingClientRect();
     if(r.top<pinH()+10||r.bottom>innerHeight-20){scrollTo(0,scrollY+r.top-(innerHeight-r.height)/2);onScroll();}
     const tw=t.querySelector('.tw'); const tr=tw.getBoundingClientRect(); tw.style.visibility='hidden';
@@ -534,7 +592,6 @@ function doClose(){
     fx.forEach(e=>e.animate([{opacity:1},{opacity:0}],{duration:160,fill:'forwards'}));
     a.onfinish=()=>{
       tw.style.visibility=''; finish();
-      if(!hoverMQ.matches){focusTile(t,f); needPick=false;}
       tw.focus({preventScroll:true});
     };
   }else finish();
@@ -589,18 +646,12 @@ vPane.addEventListener('touchend',()=>{
 vWin.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')V.hover=true;});
 vWin.addEventListener('pointerleave',()=>{V.hover=false;V.wait=performance.now()+900;});
 
-/* ---------- one animation loop: tile preview + viewer self-scroll ---------- */
+/* ---------- one animation loop: carousel + viewer self-scroll ---------- */
 let last=0;
 function tick(now){
   const dt=Math.min(64,now-(last||now)); last=now;
   if(!vOpen){
-    if(needPick) pickCenter(now);
-    if(pv.tile&&pv.max>0&&now>pv.wait&&!reduce){
-      pv.off+=pv.dir*(pv.dir>0?30:90)*dt/1000;
-      if(pv.dir>0&&pv.off>=pv.max){pv.off=pv.max;pv.dir=-1;pv.wait=now+1300;}
-      else if(pv.dir<0&&pv.off<=0){pv.off=0;pv.dir=1;pv.wait=now+1600;}
-      pv.img.style.transform=`translateY(${-pv.off}px)`;
-    }
+    carouselTick(now);
   }else if(!animating&&!reduce&&!sw){
     const max=vPane.scrollHeight-vPane.clientHeight;
     if(Math.abs(vPane.scrollTop-V.pos)>2) V.pos=vPane.scrollTop;
@@ -617,8 +668,8 @@ requestAnimationFrame(tick);
 
 /* ---------- actions ---------- */
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-open],[data-save],[data-copy],[data-vstep],[data-vsave],[data-vshare],[data-vpick]'); if(!t) return;
-  if(t.dataset.open) openV(t.dataset.open,t.closest('.tile'));
+  const t=e.target.closest('[data-cstep],[data-save],[data-copy],[data-vstep],[data-vsave],[data-vshare],[data-vpick]'); if(!t) return;
+  if(t.dataset.cstep){hold();goTo(Math.round(C.pos)+(+t.dataset.cstep));}
   else if(t.dataset.save) toggleSave(t.dataset.save);
   else if(t.dataset.copy) copy(t.dataset.copy,'Đã sao chép số Zalo');
   else if(t.dataset.vstep) stepV(+t.dataset.vstep);
@@ -677,10 +728,10 @@ const TRADES=['Spa','Nail','Salon tóc','Barber','Nha khoa','Phòng khám','Th�
   $('tick').setAttribute('title',TRADES.join(' · '));
 })();
 function setTop(){document.documentElement.style.setProperty('--toph',topH()+'px');}
-setTop(); renderChips(); buildWall(); syncSaved(); onScroll();
+setTop(); renderChips(); buildCarousel(); syncSaved(); onScroll();
 addEventListener('resize',()=>{
-  setTop(); if(nColsFor()!==nCols&&!vOpen) buildWall();
-  if(vOpen&&!animating) placeWin(); needPick=true;
+  setTop(); sizeCarousel(); render();
+  if(vOpen&&!animating) placeWin();
 });
 /* plain visits (and old #CODE links) always land on the wall; only a shared ?mau=CODE link opens a sample */
 const qMau=(new URLSearchParams(location.search).get('mau')||'').toUpperCase();
