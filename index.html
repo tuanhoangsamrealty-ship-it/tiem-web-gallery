@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#C8102E">
+<meta name="description" content="Phòng mẫu Tiệm Web: mẫu landing page cho spa, phòng khám, lớp học, bất động sản, mỹ phẩm. Chỉ từ 599K cho 1 trang website.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Phòng mẫu Tiệm Web</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -145,6 +146,64 @@ a{color:inherit}
 .note{margin:0;font-size:12.5px;color:var(--paper-dim);text-align:center}
 .note button{color:var(--red);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 96px);transform:translateX(-50%);z-index:80;padding:10px 16px;border-radius:999px;background:var(--gold);color:var(--gold-ink);font-weight:700;font-size:14px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+
+/* ---------- desktop showroom (≥1024px): big live window left, control panel right ---------- */
+.desk{position:fixed;inset:0;z-index:15;display:grid;grid-template-rows:auto minmax(0,1fr);
+  background:radial-gradient(110% 80% at 25% 0%,var(--red-hi) 0%,var(--red) 50%,var(--night) 100%)}
+.dtop{display:flex;align-items:center;gap:32px;padding:18px 40px 10px}
+.dtop .mark{font-size:26px}
+.dtabs{display:flex;gap:22px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.dtabs .tab{font-size:18px}
+.dzalo{height:40px;padding:0 16px 0 6px;border-radius:999px;background:var(--gold);color:var(--gold-ink);display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;text-decoration:none;white-space:nowrap}
+.dzalo b{height:28px;padding:0 9px;border-radius:999px;background:#0068FF;color:#fff;font-size:12px;display:grid;place-items:center}
+.dmain{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,430px);gap:40px;padding:8px 40px 28px;min-height:0}
+.dstage{position:relative;display:grid;place-items:center;min-height:0;padding:0 64px}
+.dwin{position:relative;height:100%;width:min(100%,780px);border-radius:16px;overflow:hidden;background:#fff;
+  box-shadow:0 0 0 3px rgba(255,255,255,.95),0 40px 90px -20px rgba(60,0,8,.7)}
+.dwin.wide{height:auto;aspect-ratio:1100/910}
+.dwin .wbar{height:32px}
+.dwin .wbar i{width:10px;height:10px}
+.dwin .wbar span{font-size:12px}
+.dpane{position:absolute;left:0;right:0;top:32px;bottom:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.25) transparent}
+.dpane img{display:block;width:100%;height:auto}
+.dnav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--glass);border:1px solid var(--hair);backdrop-filter:blur(10px)}
+.dnav:hover{background:rgba(255,255,255,.16)}
+.dnav svg{width:24px;height:24px}
+.dnav.prev{left:0}.dnav.next{right:0}
+.dnav[disabled]{opacity:.3;cursor:default}
+.dhint{position:absolute;left:50%;bottom:-22px;transform:translateX(-50%);font-size:12.5px;color:var(--dim);white-space:nowrap}
+.dhint kbd{font-family:var(--body);font-size:11px;font-weight:700;padding:1px 6px;border-radius:5px;border:1px solid var(--hair)}
+.dside{display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;gap:16px;min-height:0}
+.dinfo{display:grid;gap:8px}
+.dinfo .name{font-size:44px}
+.dinfo p{margin:2px 0 0;color:var(--dim);font-size:15px}
+.dacts{display:flex;gap:10px;align-items:center;margin-top:8px}
+.dpick{flex:1;height:58px;border-radius:999px;background:var(--gold);color:var(--gold-ink);font-weight:800;font-size:17px;border:3px solid #fff;box-shadow:0 14px 30px rgba(60,0,8,.35)}
+.dpick:hover{transform:translateY(-1px)}
+.dsq{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--glass);border:1px solid var(--hair);flex:none}
+.dsq svg{width:22px;height:22px}
+.dsq[aria-pressed="true"]{background:#fff;color:var(--red)}
+.dsq[aria-pressed="true"] svg path{fill:currentColor}
+.dlisth{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);border-top:1px solid var(--hair);padding-top:14px}
+.dgrid{overflow-y:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:max-content;gap:12px;align-content:start;padding:3px 6px 6px 3px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.3) transparent}
+.dth{position:relative;display:block;width:100%;border-radius:10px;overflow:hidden;background:var(--deep);box-shadow:0 0 0 2px rgba(255,255,255,.22);transition:box-shadow .15s,transform .15s}
+.dth::before{content:"";display:block;padding-top:133.333%}
+.dth img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.dth span{z-index:1;position:absolute;left:6px;top:6px;padding:2px 6px;border-radius:5px;background:rgba(20,14,12,.72);font-family:var(--cond);font-weight:700;font-size:12px;letter-spacing:.06em}
+.dth:hover{transform:translateY(-2px)}
+.dth[aria-current="true"]{box-shadow:0 0 0 3px var(--gold),0 10px 24px rgba(60,0,8,.45)}
+.dth .sv{z-index:1;position:absolute;right:6px;top:6px;width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--gold-ink);display:none;place-items:center;font-size:11px}
+.dth.saved .sv{display:grid}
+.dplans{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dplan{padding:10px 12px;border-radius:12px;background:var(--paper);color:var(--paper-ink)}
+.dplan small{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--paper-dim)}
+.dplan b{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.03em;color:var(--red)}
+@media (min-width:1024px){
+  .sheet-wrap{align-items:center}
+  .sheet{border-radius:22px;max-height:88%;max-width:600px}
+  .handle{display:none}
+}
+@media (min-width:1024px) and (max-height:760px){.dinfo .name{font-size:34px}.dpick,.dsq{height:50px}.dsq{width:50px}.dplans{display:none}}
 @media (prefers-reduced-motion:reduce){.live .pane img,.swipe,.sheet{animation:none!important}}
 </style>
 </head>
@@ -178,6 +237,38 @@ a{color:inherit}
     <p class="note">Mở Zalo xong, dán tin nhắn vào khung chat để gửi.<br>Zalo <strong>0948 332 395</strong> · <button type="button" data-copy="0948332395">Sao chép số</button></p>
   </div>
 </div>
+<div class="desk" id="desk" hidden>
+  <header class="dtop">
+    <a class="mark" href="#">Tiệm<span>Web</span><small>phòng mẫu</small></a>
+    <div class="dtabs" role="tablist" id="dtabs"></div>
+    <button class="bag" type="button" id="dBag" aria-label="Mẫu đã lưu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Đã lưu <b id="dBagN">0</b></button>
+    <a class="dzalo" href="https://zalo.me/0948332395" target="_blank" rel="noopener"><b>Zalo</b>0948 332 395</a>
+  </header>
+  <div class="dmain">
+    <section class="dstage" aria-label="Xem mẫu">
+      <button class="dnav prev" type="button" id="dPrev" aria-label="Mẫu trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="dwin" id="dWin"><div class="wbar"><i></i><i></i><i></i><span id="dUrl"></span></div><div class="dpane" id="dPane" tabindex="0" aria-label="Trang mẫu, cuộn để xem"><img id="dImg" alt=""></div></div>
+      <button class="dnav next" type="button" id="dNext" aria-label="Mẫu sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      <div class="dhint">Trang tự cuộn · rê chuột vào để tự xem · <kbd>←</kbd> <kbd>→</kbd> đổi mẫu</div>
+    </section>
+    <aside class="dside">
+      <div class="dinfo">
+        <div class="kicker" id="dKick"></div>
+        <div class="name" id="dName"></div>
+        <div class="priceline"><span class="tag">Từ <strong>599K</strong></span><span>/ 1 trang website</span></div>
+        <p>Mẫu được làm lại theo tên, màu và nội dung của shop bạn.</p>
+        <div class="dacts">
+          <button class="dpick" type="button" id="dPick">Chọn mẫu này</button>
+          <button class="dsq" type="button" id="dSave" aria-pressed="false" aria-label="Lưu mẫu" title="Lưu mẫu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button>
+          <button class="dsq" type="button" id="dShare" aria-label="Sao chép link mẫu" title="Sao chép link mẫu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></button>
+        </div>
+      </div>
+      <div class="dlisth"><span id="dListT">Các mẫu</span><span id="dPos"></span></div>
+      <div class="dgrid" id="dGrid"></div>
+      <div class="dplans" id="dPlans"></div>
+    </aside>
+  </div>
+</div>
 <div class="toast" id="toast" hidden></div>
 
 <script>
@@ -202,7 +293,7 @@ try{saved=JSON.parse(localStorage.getItem('tw-saved')||'[]').filter(c=>byCode[c]
 const persist=()=>{try{localStorage.setItem('tw-saved',JSON.stringify(saved));}catch(e){}};
 const isSaved=c=>saved.includes(c);
 function toggleSave(c){saved=isSaved(c)?saved.filter(x=>x!==c):[...saved,c];persist();syncSaved();toast(isSaved(c)?`Đã lưu ${c}`:`Bỏ lưu ${c}`);}
-function syncSaved(){$('bagN').textContent=saved.length;document.querySelectorAll('[data-save]').forEach(b=>b.setAttribute('aria-pressed',isSaved(b.dataset.save)));}
+function syncSaved(){$('bagN').textContent=saved.length;if($('dBagN')){$('dBagN').textContent=saved.length;if(typeof dSync==='function')dSync();}document.querySelectorAll('[data-save]').forEach(b=>b.setAttribute('aria-pressed',isSaved(b.dataset.save)));}
 
 /* tabs */
 let filter='all';
@@ -325,12 +416,95 @@ let tt; function toast(m){const t=$('toast');t.textContent=m;t.hidden=false;clea
 /* keyboard paging on desktop */
 document.addEventListener('keydown',e=>{
   if(!$('reader').hidden||!$('sheetWrap').hidden) return;
+  if(deskOn){
+    if(['ArrowRight','ArrowDown'].includes(e.key)){e.preventDefault();dStep(1);}
+    if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();dStep(-1);}
+    return;
+  }
   if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();const f=$('feed');f.scrollBy({top:(e.key==='ArrowDown'?1:-1)*f.clientHeight,behavior:'smooth'});}
 });
 
-renderTabs(); renderFeed(); syncSaved();
+/* ---------- desktop showroom ---------- */
+let deskOn=false, dList=[], dIdx=0;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function dRenderTabs(){
+  const t=[{id:'all',n:'Tất cả'},...DATA.cats.map(c=>({id:c.id,n:SHORT[c.id]||c.name}))];
+  $('dtabs').innerHTML=t.map(x=>`<button class="tab" role="tab" type="button" data-dtab="${x.id}" aria-selected="${x.id===filter}">${x.n}</button>`).join('');
+}
+$('dtabs').addEventListener('click',e=>{const b=e.target.closest('[data-dtab]');if(!b)return;filter=b.dataset.dtab;dRenderTabs();renderTabs();renderFeed();dBuild(0);});
+function dBuild(k){
+  dList=filter==='all'?DATA.items:DATA.items.filter(i=>i.cat===filter);
+  $('dListT').textContent=filter==='all'?`Tất cả mẫu · ${dList.length}`:`${catName[filter]} · ${dList.length}`;
+  $('dGrid').innerHTML=dList.map((i,j)=>`<button class="dth" type="button" data-dsel="${j}" aria-label="${i.code} ${i.name}"><img src="img/${i.code}-t.webp" alt="" loading="lazy"><span>${i.code}</span><i class="sv">♥</i></button>`).join('');
+  dShow(k);
+}
+function dShow(k){
+  dIdx=Math.max(0,Math.min(dList.length-1,k)); const i=dList[dIdx];
+  $('dImg').src=`img/${i.code}.webp`; $('dImg').alt=`Toàn trang mẫu ${i.name}`; $('dImg').width=i.w; $('dImg').height=i.h;
+  $('dWin').classList.toggle('wide',!!i.land);
+  $('dUrl').textContent=slug(i.name);
+  $('dKick').innerHTML=`<b>${i.code}</b> · ${catName[i.cat]}${i.land?' · Giao diện máy tính':''}`;
+  $('dName').textContent=i.name;
+  $('dPos').textContent=`${String(dIdx+1).padStart(2,'0')} / ${String(dList.length).padStart(2,'0')}`;
+  $('dPrev').disabled=dIdx===0; $('dNext').disabled=dIdx===dList.length-1;
+  $('dPane').scrollTop=0; tour.dir=1; tour.wait=performance.now()+1400;
+  dSync();
+  const cur=document.querySelector(`[data-dsel="${dIdx}"]`); if(cur) cur.scrollIntoView({block:'nearest'});
+  const nx=dList[dIdx+1]; if(nx){const pre=new Image(); pre.src=`img/${nx.code}.webp`;}
+  try{history.replaceState(null,'','#'+i.code);}catch(e){}
+}
+function dSync(){
+  if(!dList.length) return; const c=dList[dIdx].code;
+  $('dSave').setAttribute('aria-pressed',isSaved(c));
+  document.querySelectorAll('[data-dsel]').forEach(b=>{const j=+b.dataset.dsel; b.setAttribute('aria-current',j===dIdx); b.classList.toggle('saved',isSaved(dList[j].code));});
+}
+function dStep(d){if(dIdx+d>=0&&dIdx+d<dList.length) dShow(dIdx+d);}
+$('dGrid').addEventListener('click',e=>{const b=e.target.closest('[data-dsel]'); if(b) dShow(+b.dataset.dsel);});
+$('dPrev').onclick=()=>dStep(-1); $('dNext').onclick=()=>dStep(1);
+$('dPick').onclick=()=>{const c=dList[dIdx].code; openSheet([c,...saved.filter(x=>x!==c)]);};
+$('dSave').onclick=()=>toggleSave(dList[dIdx].code);
+$('dShare').onclick=()=>shareLink(dList[dIdx].code);
+$('dBag').onclick=()=>$('bag').click();
+$('dPlans').innerHTML=PLANS.map(p=>`<div class="dplan"><small>${p.name.replace('Gói ','')}</small><b>${p.price}</b></div>`).join('');
+
+/* gentle self-scroll of the big window; stops while the pointer is over it or the visitor scrolls */
+const tour={dir:1,wait:0,hover:false,last:0,userUntil:0};
+$('dPane').addEventListener('pointerenter',()=>tour.hover=true);
+$('dPane').addEventListener('pointerleave',()=>{tour.hover=false;tour.wait=performance.now()+900;});
+['wheel','touchstart','keydown'].forEach(ev=>$('dPane').addEventListener(ev,()=>tour.userUntil=performance.now()+5000,{passive:true}));
+function tick(now){
+  const dt=Math.min(64,now-(tour.last||now)); tour.last=now;
+  const p=$('dPane');
+  if(deskOn&&!reduce&&!tour.hover&&now>tour.userUntil&&now>tour.wait&&$('sheetWrap').hidden){
+    const max=p.scrollHeight-p.clientHeight;
+    if(max>4){
+      p.scrollTop+=tour.dir*(tour.dir>0?34:90)*dt/1000;
+      if(tour.dir>0&&p.scrollTop>=max-1){tour.dir=-1;tour.wait=now+1600;}
+      else if(tour.dir<0&&p.scrollTop<=0){tour.dir=1;tour.wait=now+1800;}
+    }
+  }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+/* switch between phone feed and desktop showroom */
+const wideMQ=matchMedia('(min-width:1024px) and (min-height:560px)');
+function applyMode(){
+  const want=wideMQ.matches; if(want===deskOn&&dList.length) return;
+  deskOn=want;
+  $('desk').hidden=!deskOn; $('feed').hidden=deskOn; document.querySelector('.chrome').hidden=deskOn;
+  if(deskOn){
+    dRenderTabs();
+    const code=(location.hash||'').slice(1).toUpperCase();
+    dList=filter==='all'?DATA.items:DATA.items.filter(i=>i.cat===filter);
+    dBuild(Math.max(0,dList.findIndex(i=>i.code===code)));
+  }
+}
+wideMQ.addEventListener?wideMQ.addEventListener('change',applyMode):wideMQ.addListener(applyMode);
+
+renderTabs(); renderFeed(); syncSaved(); applyMode();
 const start=(location.hash||'').slice(1).toUpperCase();
-if(byCode[start]){const s=document.querySelector(`.slide[data-code="${start}"]`); if(s) $('feed').scrollTop=s.offsetTop;}
+if(!deskOn&&byCode[start]){const s=document.querySelector(`.slide[data-code="${start}"]`); if(s) $('feed').scrollTop=s.offsetTop;}
 </script>
 
 </body>
