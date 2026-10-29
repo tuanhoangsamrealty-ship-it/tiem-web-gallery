@@ -1,125 +1,170 @@
 <!doctype html>
-<html lang="vi">
-<head>
-<meta charset="utf-8">
+<html lang="vi"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#C8102E">
-<meta name="description" content="Phòng mẫu Tiệm Web: mẫu landing page cho spa, phòng khám, lớp học, bất động sản, mỹ phẩm. Chỉ từ 599K cho 1 trang website.">
-<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta name="description" content="Phòng mẫu Tiệm Web: 18 mẫu landing page cho shop, chỉ từ 599K. Chạm vào mẫu để xem trọn trang.">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Phòng mẫu Tiệm Web</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 <style>
-/* Layout: a vertical full-screen feed — one sample per screen, the page inside its window scrolls itself;
-   ambient backdrop sampled from each sample; action rail on the right; sheet to pick a package.
-   Deliberately single (dark) theme: the samples supply the colour. */
+/* Overview-first gallery: a wall of every sample (two staggered columns on phones, four on desktop).
+   The tile nearest the middle of the screen (or under the mouse) lifts and scrolls its own page;
+   tapping a tile grows it into a full-screen viewer and closing shrinks it back into place.
+   Single red theme on purpose — it is the ad style, and the samples supply the other colours. */
 :root{
-  --night:#8E0B14; --red-hi:#E3242B; --red:#C8102E; --deep:#5E0710; --ink:#FFFFFF; --dim:rgba(255,255,255,.78); --hair:rgba(255,255,255,.28);
+  --night:#8E0B14; --red-hi:#E3242B; --red:#C8102E; --deep:#5E0710; --ink:#FFFFFF; --dim:rgba(255,255,255,.8); --hair:rgba(255,255,255,.28);
   --gold:#FFD84D; --gold-ink:#8E0B14; --glass:rgba(94,7,16,.42); --paper:#FFFDF8; --paper-ink:#141414; --paper-dim:#6E6862; --paper-line:#EDE6DA;
   --display:'Bricolage Grotesque','Be Vietnam Pro',system-ui,sans-serif;
   --cond:'Barlow Condensed','Arial Narrow',sans-serif;
   --body:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gx:max(16px,env(safe-area-inset-left,0px)); --gap:14px; --off:64px; --toph:56px;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-html,body{height:100%}
-body{background:var(--night);color:var(--ink);font-family:var(--body);overflow:hidden;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:auto}
+html.lock{overflow:hidden}
+body{margin:0;min-height:100%;background:var(--night);color:var(--ink);font-family:var(--body);-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(130% 75% at 15% 0%,var(--red-hi) 0%,var(--red) 48%,var(--night) 100%)}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:10px}
+svg{display:block}
 
-/* chrome over the feed */
-.chrome{position:fixed;left:0;right:0;top:0;z-index:20;padding-top:calc(env(safe-area-inset-top,0px) + 10px);
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
-  background:linear-gradient(rgba(200,16,46,.92),rgba(200,16,46,0));pointer-events:none}
-.chrome>*{pointer-events:auto}
-.row1{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:560px;margin:0 auto}
-.mark{font-family:var(--cond);font-weight:800;font-size:22px;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;display:flex;align-items:baseline;gap:6px}
+/* top bar */
+.top{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:calc(env(safe-area-inset-top,0px) + 10px) var(--gx) 10px;transition:background .25s,box-shadow .25s}
+.top.solid,.filters.solid{background:rgba(160,10,30,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.top.solid{box-shadow:none}
+.mark{font-family:var(--display);font-weight:800;font-size:23px;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:baseline;gap:6px}
 .mark span{color:var(--gold)}
-.mark{font-family:var(--display);text-transform:none;letter-spacing:-.02em;font-size:23px}
-.mark small{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--dim);text-transform:none}
-.bag{height:34px;padding:0 12px;border-radius:999px;background:var(--glass);border:1px solid var(--hair);display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;backdrop-filter:blur(10px)}
-.bag b{min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--gold);color:var(--gold-ink);font-size:12px;display:grid;place-items:center}
-.tabs{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;max-width:560px;margin:8px auto 0;padding-bottom:6px}
-.tabs::-webkit-scrollbar{display:none}
-.tab{flex:none;font-family:var(--cond);font-weight:700;font-size:17px;letter-spacing:.03em;text-transform:uppercase;color:var(--dim);padding:4px 0;position:relative;white-space:nowrap}
-.tab[aria-selected="true"]{color:var(--ink)}
-.tab[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;border-radius:2px;background:var(--gold)}
+.mark small{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--dim)}
+.zpill{height:36px;padding:0 14px 0 5px;border-radius:999px;background:var(--gold);color:var(--gold-ink);display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;text-decoration:none;white-space:nowrap;box-shadow:0 8px 20px rgba(60,0,8,.3)}
+.zpill b{height:26px;padding:0 8px;border-radius:999px;background:#0068FF;color:#fff;font-size:11.5px;display:grid;place-items:center}
+.zpill .num{display:none}
 
-/* feed */
-.feed{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;scrollbar-width:none}
-.feed::-webkit-scrollbar{display:none}
-.slide{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;isolation:isolate;background:radial-gradient(120% 70% at 30% 0%,var(--red-hi) 0%,var(--red) 55%,var(--night) 100%)}
-.amb{display:none}
-.slide::before{content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(rgba(94,7,16,0) 62%,rgba(94,7,16,.55))}
-.stagebox{position:absolute;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 90px);bottom:calc(env(safe-area-inset-bottom,0px) + 196px);display:grid;place-items:center;padding:0 max(12px,env(safe-area-inset-right,0px)) 0 max(12px,env(safe-area-inset-left,0px))}
-
-/* the site window */
-.win{position:relative;width:100%;height:100%;max-width:460px;border-radius:18px;overflow:hidden;background:#fff;
-  box-shadow:0 0 0 3px rgba(255,255,255,.95),0 28px 60px -10px rgba(60,0,8,.65);transform:translateZ(0)}
-.win.wide{height:auto;aspect-ratio:1100/906}
-.wbar{position:absolute;left:0;right:0;top:0;height:26px;z-index:2;background:rgba(245,243,239,.96);display:flex;align-items:center;gap:5px;padding:0 9px}
-.wbar i{width:7px;height:7px;border-radius:50%;background:#D5D0C8}
-.wbar span{position:absolute;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;color:#5C574F;white-space:nowrap;max-width:62%;overflow:hidden;text-overflow:ellipsis}
-.pane{position:absolute;left:0;right:0;top:26px;bottom:0;overflow:hidden}
-.pane img{display:block;width:100%;height:auto;will-change:transform}
-.live .pane img{animation:tour var(--dur,16s) cubic-bezier(.45,0,.55,1) .8s infinite alternate}
-@keyframes tour{0%,8%{transform:translateY(0)}92%,100%{transform:translateY(calc(-1 * var(--travel,0px)))}}
-.win:hover .pane img,.win.hold .pane img{animation-play-state:paused}
-
-/* caption + rail */
-.cap{z-index:3;position:absolute;left:max(16px,env(safe-area-inset-left,0px));right:96px;bottom:calc(env(safe-area-inset-bottom,0px) + 26px);display:grid;gap:6px}
-.kicker{font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
-.kicker b{color:var(--gold);font-weight:800}
-.kicker{color:#fff}
-.name{font-family:var(--display);font-weight:800;font-size:clamp(26px,7.4vw,36px);line-height:1;letter-spacing:-.035em;text-wrap:balance;text-shadow:0 3px 0 rgba(90,0,8,.35)}
-.priceline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px}
-.tag{display:inline-flex;align-items:baseline;gap:5px;padding:5px 11px 7px;border-radius:10px;background:var(--gold);color:var(--gold-ink);font-weight:800;font-size:12px;transform:rotate(-3deg);border:2.5px solid #fff;box-shadow:0 8px 18px rgba(60,0,8,.35)}
+/* hero */
+.hero{padding:6px var(--gx) 14px;max-width:1240px;margin:0 auto}
+.hero h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(34px,10vw,46px);line-height:1;letter-spacing:-.04em;text-shadow:0 3px 0 rgba(90,0,8,.35)}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.chip{display:inline-block;background:#fff;color:var(--red);border-radius:999px;padding:0 .32em .1em;text-shadow:none}
+.hrow{display:flex;align-items:center;gap:14px;margin-top:14px}
+.tag{display:inline-flex;align-items:baseline;gap:5px;flex:none;padding:5px 11px 7px;border-radius:10px;background:var(--gold);color:var(--gold-ink);font-weight:800;font-size:12px;transform:rotate(-3deg);border:2.5px solid #fff;box-shadow:0 8px 18px rgba(60,0,8,.35)}
 .tag strong{font-family:var(--display);font-weight:800;font-size:24px;line-height:.9;letter-spacing:-.03em}
-.priceline>span:not(.tag){font-size:13px;color:var(--dim)}
-.rail{z-index:3;position:absolute;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 24px);display:grid;gap:14px;justify-items:center}
-.act{display:grid;justify-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--ink);text-shadow:0 1px 2px rgba(0,0,0,.9),0 0 8px rgba(0,0,0,.6)}
-.act i{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--glass);border:1px solid var(--hair);backdrop-filter:blur(10px)}
-.act svg{width:22px;height:22px}
-.act.pick i{background:var(--gold);border:3px solid #fff;color:var(--gold-ink);width:60px;height:60px}
-.act[aria-pressed="true"] i{background:#fff;color:var(--red)}
-.act[aria-pressed="true"] svg path{fill:currentColor}
-.count{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:calc(env(safe-area-inset-top,0px) + 100px);font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:.08em;color:var(--dim);writing-mode:vertical-rl;font-variant-numeric:tabular-nums}
-@media (min-width:600px){.cap{left:calc(50% - 260px)}.rail{right:calc(50% - 270px)}.count{right:calc(50% - 266px)}}
+.hrow p{margin:0;font-size:13.5px;line-height:1.4;color:var(--dim)}
+.hrow p b{color:#fff}
 
-.swipe{color:#fff!important;position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 208px);transform:translateX(-50%);z-index:3;padding:6px 12px;border-radius:999px;background:var(--glass);backdrop-filter:blur(8px);font-size:12px;font-weight:600;color:var(--dim);display:flex;gap:6px;align-items:center;animation:nudge 1.8s ease-in-out infinite}
-@keyframes nudge{50%{transform:translate(-50%,-6px)}}
+/* filters */
+.filters{position:sticky;top:var(--toph);z-index:25;transition:background .25s}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:8px var(--gx) 10px;max-width:1240px;margin:0 auto}
+.chips::-webkit-scrollbar{display:none}
+.fc{flex:none;height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--hair);background:var(--glass);font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.fc i{font-style:normal;font-family:var(--cond);font-size:14px;opacity:.75}
+.fc[aria-pressed="true"]{background:#fff;color:var(--red);border-color:#fff}
+.assure{max-width:1240px;margin:0 auto;padding:0 var(--gx) 14px;font-size:12.5px;color:var(--dim);display:flex;gap:7px;align-items:flex-start}
+.assure svg{flex:none;margin-top:1px;color:var(--gold)}
 
-/* price slide */
-.end{display:grid;align-content:center;gap:14px;padding:calc(env(safe-area-inset-top,0px) + 96px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 24px) max(16px,env(safe-area-inset-left,0px));background:radial-gradient(120% 70% at 30% 0%,var(--red-hi) 0%,var(--red) 55%,var(--night) 100%)}
-.end>*{width:100%;max-width:520px;margin:0 auto}
-.end h2{font-family:var(--display);font-weight:800;font-size:44px;line-height:1;letter-spacing:-.035em;margin:0;text-shadow:0 3px 0 rgba(90,0,8,.35)}
+/* the wall */
+.wall{display:flex;gap:var(--gap);align-items:flex-start;padding:4px var(--gx) 0;max-width:1240px;margin:0 auto}
+.col{flex:1;min-width:0;display:flex;flex-direction:column;gap:22px}
+.col:nth-child(even){padding-top:var(--off)}
+.tile{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .75s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0ms)}
+.tile.in{opacity:1;transform:none}
+.tw{display:block;width:100%;position:relative;text-align:left;border-radius:12px;overflow:hidden;background:#fff;container-type:inline-size;
+  box-shadow:0 0 0 2px rgba(255,255,255,.92),0 18px 36px -14px rgba(60,0,8,.65);transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.wbar{position:relative;display:flex;align-items:center;gap:clamp(4px,1.1cqw,7px);height:clamp(14px,4.2cqw,32px);padding:0 clamp(6px,2.2cqw,14px);background:#F3F0EA;flex:none}
+.wbar i{width:clamp(5px,1.35cqw,10px);height:clamp(5px,1.35cqw,10px);border-radius:50%;background:#D5D0C8}
+.wbar span{position:absolute;left:50%;transform:translateX(-50%);font-size:clamp(8px,1.55cqw,12px);font-weight:600;color:#5C574F;white-space:nowrap;max-width:60%;overflow:hidden;text-overflow:ellipsis}
+.tw .wbar span{display:none}
+.tpane{position:relative;display:block;aspect-ratio:3/4;overflow:hidden;background:#EFEBE4}
+.tpane img{display:block;width:100%;height:auto;will-change:transform}
+.tpane img.land{position:absolute;inset:0;height:100%;object-fit:cover;object-position:left top}
+.tcode{position:absolute;left:8px;top:calc(clamp(14px,4.2cqw,32px) + 8px);padding:2px 7px;border-radius:6px;background:rgba(20,14,12,.72);color:#fff;font-family:var(--cond);font-weight:700;font-size:12.5px;letter-spacing:.06em}
+.tw::after{content:attr(data-cta);position:absolute;left:50%;bottom:10px;transform:translate(-50%,10px);opacity:0;white-space:nowrap;
+  padding:6px 12px;border-radius:999px;background:var(--gold);color:var(--gold-ink);font-weight:800;font-size:12px;box-shadow:0 8px 20px rgba(0,0,0,.3);transition:opacity .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
+.tile.on .tw{transform:translateY(-4px) scale(1.035);box-shadow:0 0 0 3px var(--gold),0 28px 54px -14px rgba(50,0,6,.8)}
+.tile.on .tw::after{opacity:1;transform:translate(-50%,0)}
+.tmeta{display:flex;align-items:flex-start;gap:8px;margin-top:11px}
+.tmeta>div{flex:1;min-width:0}
+.tmeta small{display:block;font-family:var(--cond);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
+.tmeta b{display:block;font-weight:700;font-size:15px;line-height:1.25;margin-top:1px}
+.heart{width:36px;height:36px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--glass);border:1px solid var(--hair)}
+.heart svg{width:17px;height:17px}
+[aria-pressed="true"].heart,.vbtn[aria-pressed="true"],.dsq[aria-pressed="true"]{background:#fff;color:var(--red);border-color:#fff}
+[aria-pressed="true"] svg path{fill:currentColor}
+
+/* plans at the end */
+.end{max-width:620px;margin:0 auto;padding:72px var(--gx) 130px;display:grid;gap:14px}
+.end h2{font-family:var(--display);font-weight:800;font-size:42px;line-height:1;letter-spacing:-.035em;margin:0;text-shadow:0 3px 0 rgba(90,0,8,.35)}
 .end h2 em{font-style:normal;color:var(--gold)}
+.end>p{margin:0;color:var(--dim);font-size:14px;line-height:1.5}
 .plans{display:grid;gap:8px}
 .plan{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 14px;border-radius:16px;background:var(--paper);color:var(--paper-ink);box-shadow:0 14px 30px rgba(60,0,8,.3)}
-.plan b{font-weight:700}
+.plan b{font-weight:700;grid-column:1;grid-row:1;align-self:center}
 .plan p{grid-column:1/-1;margin:0;font-size:13px;color:var(--paper-dim)}
-.plan strong{font-family:var(--display);font-weight:800;font-size:28px;line-height:1;letter-spacing:-.03em;color:var(--red);grid-row:1}
-.zrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.plan strong{font-family:var(--display);font-weight:800;font-size:28px;line-height:1;letter-spacing:-.03em;color:var(--red);grid-column:2;grid-row:1}
+.zrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:4px}
 .zbtn{flex:1;min-width:200px;height:56px;border-radius:999px;background:var(--gold);color:var(--gold-ink);box-shadow:0 12px 28px rgba(60,0,8,.35);font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none}
 .zbtn b{height:24px;padding:0 8px;border-radius:999px;background:#0068FF;color:#fff;font-size:12px;display:grid;place-items:center}
 .znum{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.01em;user-select:all}
 .copy{height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--hair);font-size:13px;font-weight:700}
 
-/* close-up reader */
-.reader{position:fixed;inset:0;z-index:40;background:var(--deep);display:grid;grid-template-rows:auto 1fr auto}
-.rbar{display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 8px) max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px))}
-.rbar .t{flex:1;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rbar .t span{font-family:var(--cond);color:var(--gold);letter-spacing:.08em;margin-right:6px}
-.ib{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);flex:none}
-.ib svg{width:20px;height:20px}
-.rscroll{overflow-y:auto;overscroll-behavior:contain;padding:0 max(12px,env(safe-area-inset-right,0px)) 20px max(12px,env(safe-area-inset-left,0px))}
-.rscroll img{display:block;width:100%;max-width:640px;margin:0 auto;border-radius:14px;height:auto;background:#222}
-.rfoot{display:flex;gap:10px;align-items:center;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));border-top:1px solid var(--hair)}
-.rfoot .zbtn{min-width:0}
+/* saved bar */
+.savebar{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:35;transform:translateX(-50%);
+  display:flex;align-items:center;gap:10px;height:54px;padding:0 8px 0 16px;border-radius:999px;background:#fff;color:var(--paper-ink);
+  box-shadow:0 16px 40px rgba(40,0,6,.5);font-weight:700;font-size:14px;white-space:nowrap;animation:pop .35s cubic-bezier(.2,.9,.3,1.2)}
+.savebar svg{width:18px;height:18px;color:var(--red)}
+.savebar svg path{fill:currentColor}
+.savebar .go{height:40px;padding:0 14px;border-radius:999px;background:var(--gold);color:var(--gold-ink);display:flex;align-items:center;gap:6px;font-weight:800}
+@keyframes pop{from{transform:translate(-50%,30px);opacity:0}}
+
+/* viewer */
+.vw{position:fixed;inset:0;z-index:40;isolation:isolate;display:grid;grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"top" "slot" "foot"}
+.vbg{position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 80% at 20% 0%,#B00D24 0%,var(--night) 55%,var(--deep) 100%)}
+.vtop{grid-area:top;display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 8px) var(--gx) 10px}
+.vclose{height:40px;min-width:40px;padding:0 12px 0 8px;border-radius:999px;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);font-weight:700;font-size:14px;flex:none}
+.vclose svg{width:20px;height:20px}
+.vt{flex:1;min-width:0;line-height:1.15}
+.vt b{display:block;font-family:var(--cond);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--gold)}
+.vt span{display:block;font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vstep{display:flex;align-items:center;gap:2px;flex:none;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.vstep button{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.1)}
+.vstep button[disabled]{opacity:.3;cursor:default}
+.vstep svg{width:18px;height:18px}
+.vstep span{min-width:42px;text-align:center}
+.vslot{grid-area:slot;margin:0 10px;min-height:0}
+.vwin{position:fixed;z-index:2;display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:#fff;container-type:inline-size;
+  box-shadow:0 0 0 3px rgba(255,255,255,.95),0 30px 70px -10px rgba(40,0,6,.75)}
+.vpane{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:none}
+.vpane::-webkit-scrollbar{display:none}
+.vpane img{display:block;width:100%;height:auto;background:#F3F0EA no-repeat top center/100% auto}
+.vpane.land{display:grid;align-content:center;background:#F3F0EA}
+.vfoot{grid-area:foot;display:flex;gap:10px;align-items:center;padding:12px var(--gx) calc(12px + env(safe-area-inset-bottom,0px))}
+.vbtn{width:52px;height:52px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--glass);border:1px solid var(--hair)}
+.vbtn svg{width:21px;height:21px}
+.vpick{flex:1;height:54px;border-radius:999px;background:var(--gold);color:var(--gold-ink);font-weight:800;font-size:16px;border:3px solid #fff;box-shadow:0 12px 28px rgba(30,0,4,.4);display:flex;align-items:center;justify-content:center;gap:8px}
+.vpick b{height:22px;padding:0 7px;border-radius:999px;background:#0068FF;color:#fff;font-size:11px;display:grid;place-items:center}
+.vhint{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 96px);z-index:3;transform:translateX(-50%);padding:8px 14px;border-radius:999px;background:rgba(20,6,8,.78);backdrop-filter:blur(8px);font-size:12.5px;font-weight:600;white-space:nowrap;pointer-events:none;transition:opacity .5s}
+.vside,.vnav,.vclose .lg{display:none}
+
+/* desktop viewer side panel */
+.kicker{font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.kicker b{color:var(--gold);font-weight:800}
+.name{font-family:var(--display);font-weight:800;font-size:44px;line-height:1;letter-spacing:-.035em;text-wrap:balance;text-shadow:0 3px 0 rgba(90,0,8,.35)}
+.priceline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px}
+.priceline>span:not(.tag){font-size:14px;color:var(--dim)}
+.dacts{display:flex;gap:10px;align-items:center;margin-top:6px}
+.dpick{flex:1;height:58px;border-radius:999px;background:var(--gold);color:var(--gold-ink);font-weight:800;font-size:17px;border:3px solid #fff;box-shadow:0 14px 30px rgba(30,0,4,.4)}
+.dpick:hover{transform:translateY(-1px)}
+.dsq{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--glass);border:1px solid var(--hair);flex:none}
+.dsq svg{width:22px;height:22px}
+.dplans{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dplan{padding:10px 12px;border-radius:12px;background:var(--paper);color:var(--paper-ink)}
+.dplan small{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--paper-dim)}
+.dplan b{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.03em;color:var(--red)}
+.shint{margin:0;font-size:12.5px;color:var(--dim)}
+.shint kbd{font-family:var(--body);font-size:11px;font-weight:700;padding:1px 6px;border-radius:5px;border:1px solid var(--hair)}
 
 /* sheet */
 .sheet-wrap{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
@@ -145,85 +190,103 @@ a{color:inherit}
 .msg textarea{width:100%;min-height:92px;resize:vertical;border-radius:12px;border:1px solid var(--paper-line);background:#F8F4EE;color:var(--paper-ink);padding:10px 12px;font:inherit;font-size:14px;line-height:1.45}
 .note{margin:0;font-size:12.5px;color:var(--paper-dim);text-align:center}
 .note button{color:var(--red);font-weight:700;text-decoration:underline;text-underline-offset:3px}
-.toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 96px);transform:translateX(-50%);z-index:80;padding:10px 16px;border-radius:999px;background:var(--gold);color:var(--gold-ink);font-weight:700;font-size:14px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 82px);transform:translateX(-50%);z-index:80;padding:10px 16px;border-radius:999px;background:var(--gold);color:var(--gold-ink);font-weight:700;font-size:14px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 
-/* ---------- desktop showroom (≥1024px): big live window left, control panel right ---------- */
-.desk{position:fixed;inset:0;z-index:15;display:grid;grid-template-rows:auto minmax(0,1fr);
-  background:radial-gradient(110% 80% at 25% 0%,var(--red-hi) 0%,var(--red) 50%,var(--night) 100%)}
-.dtop{display:flex;align-items:center;gap:32px;padding:18px 40px 10px}
-.dtop .mark{font-size:26px}
-.dtabs{display:flex;gap:22px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
-.dtabs .tab{font-size:18px}
-.dzalo{height:40px;padding:0 16px 0 6px;border-radius:999px;background:var(--gold);color:var(--gold-ink);display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;text-decoration:none;white-space:nowrap}
-.dzalo b{height:28px;padding:0 9px;border-radius:999px;background:#0068FF;color:#fff;font-size:12px;display:grid;place-items:center}
-.dmain{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,430px);gap:40px;padding:8px 40px 28px;min-height:0}
-.dstage{position:relative;display:grid;place-items:center;min-height:0;padding:0 64px}
-.dwin{position:relative;height:100%;width:min(100%,780px);border-radius:16px;overflow:hidden;background:#fff;
-  box-shadow:0 0 0 3px rgba(255,255,255,.95),0 40px 90px -20px rgba(60,0,8,.7)}
-.dwin.wide{height:auto;aspect-ratio:1100/910}
-.dwin .wbar{height:32px}
-.dwin .wbar i{width:10px;height:10px}
-.dwin .wbar span{font-size:12px}
-.dpane{position:absolute;left:0;right:0;top:32px;bottom:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.25) transparent}
-.dpane img{display:block;width:100%;height:auto}
-.dnav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--glass);border:1px solid var(--hair);backdrop-filter:blur(10px)}
-.dnav:hover{background:rgba(255,255,255,.16)}
-.dnav svg{width:24px;height:24px}
-.dnav.prev{left:0}.dnav.next{right:0}
-.dnav[disabled]{opacity:.3;cursor:default}
-.dhint{position:absolute;left:50%;bottom:-22px;transform:translateX(-50%);font-size:12.5px;color:var(--dim);white-space:nowrap}
-.dhint kbd{font-family:var(--body);font-size:11px;font-weight:700;padding:1px 6px;border-radius:5px;border:1px solid var(--hair)}
-.dside{display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;gap:16px;min-height:0}
-.dinfo{display:grid;gap:8px}
-.dinfo .name{font-size:44px}
-.dinfo p{margin:2px 0 0;color:var(--dim);font-size:15px}
-.dacts{display:flex;gap:10px;align-items:center;margin-top:8px}
-.dpick{flex:1;height:58px;border-radius:999px;background:var(--gold);color:var(--gold-ink);font-weight:800;font-size:17px;border:3px solid #fff;box-shadow:0 14px 30px rgba(60,0,8,.35)}
-.dpick:hover{transform:translateY(-1px)}
-.dsq{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--glass);border:1px solid var(--hair);flex:none}
-.dsq svg{width:22px;height:22px}
-.dsq[aria-pressed="true"]{background:#fff;color:var(--red)}
-.dsq[aria-pressed="true"] svg path{fill:currentColor}
-.dlisth{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);border-top:1px solid var(--hair);padding-top:14px}
-.dgrid{overflow-y:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:max-content;gap:12px;align-content:start;padding:3px 6px 6px 3px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.3) transparent}
-.dth{position:relative;display:block;width:100%;border-radius:10px;overflow:hidden;background:var(--deep);box-shadow:0 0 0 2px rgba(255,255,255,.22);transition:box-shadow .15s,transform .15s}
-.dth::before{content:"";display:block;padding-top:133.333%}
-.dth img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block}
-.dth span{z-index:1;position:absolute;left:6px;top:6px;padding:2px 6px;border-radius:5px;background:rgba(20,14,12,.72);font-family:var(--cond);font-weight:700;font-size:12px;letter-spacing:.06em}
-.dth:hover{transform:translateY(-2px)}
-.dth[aria-current="true"]{box-shadow:0 0 0 3px var(--gold),0 10px 24px rgba(60,0,8,.45)}
-.dth .sv{z-index:1;position:absolute;right:6px;top:6px;width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--gold-ink);display:none;place-items:center;font-size:11px}
-.dth.saved .sv{display:grid}
-.dplans{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.dplan{padding:10px 12px;border-radius:12px;background:var(--paper);color:var(--paper-ink)}
-.dplan small{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--paper-dim)}
-.dplan b{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.03em;color:var(--red)}
+@media (min-width:640px){:root{--gap:20px;--off:80px}}
 @media (min-width:1024px){
+  :root{--gx:40px;--gap:26px;--off:110px;--toph:68px}
+  .top{padding:16px max(var(--gx),calc((100% - 1240px)/2 + var(--gx)))}
+  .mark{font-size:26px}
+  .zpill{height:42px;font-size:15px}.zpill .num{display:inline}.zpill .txt{display:none}
+  .hero{display:grid;grid-template-columns:auto 1fr;align-items:end;gap:48px;padding:20px var(--gx) 22px}
+  .hero h1{font-size:72px}
+  .hrow{margin:0 0 8px;justify-self:end;max-width:440px}
+  .hrow p{font-size:15px}
+  .tag strong{font-size:30px}
+  .chips{padding:10px var(--gx) 12px}
+  .fc{height:40px;font-size:14.5px;padding:0 18px}
+  .assure{font-size:13.5px;padding-bottom:22px}
+  .col{gap:34px}
+  .tmeta b{font-size:16.5px}
+  .end{padding-top:100px}
   .sheet-wrap{align-items:center}
   .sheet{border-radius:22px;max-height:88%;max-width:600px}
   .handle{display:none}
+  .vw{grid-template-columns:minmax(0,1fr) minmax(340px,400px);grid-template-rows:auto minmax(0,1fr);grid-template-areas:"top side" "slot side";column-gap:44px;padding:0 var(--gx) 30px}
+  .vtop{padding:18px 0 16px}
+  .vt,.vstep,.vfoot,.vhint{display:none}
+  .vclose{height:44px;padding:0 18px 0 12px;font-size:15px}
+  .vclose .lg{display:inline}.vclose .sm{display:none}
+  .vslot{width:min(calc(100% - 150px),800px);justify-self:center;margin:0}
+  .vnav{display:grid;grid-area:slot;align-self:center;z-index:3;width:54px;height:54px;border-radius:50%;place-items:center;background:var(--glass);border:1px solid var(--hair);backdrop-filter:blur(10px)}
+  .vnav:hover{background:rgba(255,255,255,.16)}
+  .vnav svg{width:24px;height:24px}
+  .vnav.prev{justify-self:start}.vnav.next{justify-self:end}
+  .vnav[disabled]{opacity:.3;cursor:default}
+  .vside{display:grid;grid-area:side;align-content:center;gap:12px;padding-top:24px}
+  .spos{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);border-top:1px solid var(--hair);padding-top:14px;margin-top:8px}
 }
-@media (min-width:1024px) and (max-height:760px){.dinfo .name{font-size:34px}.dpick,.dsq{height:50px}.dsq{width:50px}.dplans{display:none}}
-@media (prefers-reduced-motion:reduce){.live .pane img,.swipe,.sheet{animation:none!important}}
+@media (min-width:1024px) and (max-height:760px){.name{font-size:34px}.dpick,.dsq{height:50px}.dsq{width:50px}.dplans{display:none}}
+@media (prefers-reduced-motion:reduce){.tile{transition:none}.tw{transition:none}.sheet,.savebar{animation:none}}
 </style>
-</head>
-<body>
+</head><body>
 
+<header class="top" id="top">
+  <a class="mark" href="#">Tiệm<span>Web</span><small>phòng mẫu</small></a>
+  <a class="zpill" href="https://zalo.me/0948332395" target="_blank" rel="noopener"><b>Zalo</b><span class="txt">Nhắn ngay</span><span class="num">0948 332 395</span></a>
+</header>
 
-<div class="chrome">
-  <div class="row1">
-    <a class="mark" href="#">Tiệm<span>Web</span><small>phòng mẫu</small></a>
-    <button class="bag" type="button" id="bag" aria-label="Mẫu đã lưu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Đã lưu <b id="bagN">0</b></button>
+<section class="hero">
+  <h1><span id="hCount">18</span> mẫu website<br>cho <span class="chip">shop bạn</span></h1>
+  <div class="hrow"><span class="tag">Chỉ từ <strong>599K</strong></span><p><b id="hTap">Chạm vào mẫu</b> để xem trọn trang. Mẫu nào cũng làm lại theo tên, màu và nội dung shop bạn.</p></div>
+</section>
+
+<nav class="filters" id="filters" aria-label="Lọc theo ngành"><div class="chips" id="chips"></div></nav>
+<p class="assure"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Không thấy ngành của bạn? Mẫu nào cũng đổi được sang ngành và tên shop bạn.</span></p>
+
+<main class="wall" id="wall" aria-label="Các mẫu landing page"></main>
+
+<section class="end" aria-label="Bảng giá">
+  <h2>Chọn mẫu.<br><em>Làm theo shop bạn.</em></h2>
+  <p>Giá cho 1 trang website. Ngành nào cũng làm được: nhắn ngành và tên shop, Tiệm Web gợi ý mẫu hợp nhất.</p>
+  <div class="plans" id="plans"></div>
+  <div class="zrow"><a class="zbtn" href="https://zalo.me/0948332395" target="_blank" rel="noopener">Nhắn <b>Zalo</b></a>
+    <span class="znum">0948 332 395</span><button class="copy" type="button" data-copy="0948332395">Sao chép số</button></div>
+</section>
+
+<button class="savebar" type="button" id="saveBar" hidden><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span>Đã lưu <b id="sbN">0</b> mẫu</span><span class="go">Gửi qua Zalo →</span></button>
+
+<div class="vw" id="vw" role="dialog" aria-modal="true" aria-label="Xem mẫu" hidden>
+  <div class="vbg" id="vbg"></div>
+  <div class="vtop vfx">
+    <button class="vclose" type="button" id="vClose" aria-label="Quay lại tất cả mẫu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path class="sm" d="M6 6l12 12M18 6L6 18"/><path class="lg" d="M15 5l-7 7 7 7"/></svg><span class="lg">Tất cả mẫu</span></button>
+    <div class="vt"><b id="vCode"></b><span id="vName"></span></div>
+    <div class="vstep"><button type="button" data-vstep="-1" aria-label="Mẫu trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button><span id="vPos"></span><button type="button" data-vstep="1" aria-label="Mẫu sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
   </div>
-  <div class="tabs" role="tablist" id="tabs"></div>
-</div>
-
-<main class="feed" id="feed" aria-label="Các mẫu landing page"></main>
-
-<div class="reader" id="reader" role="dialog" aria-modal="true" aria-label="Xem kỹ mẫu" hidden>
-  <div class="rbar"><button class="ib" type="button" id="rClose" aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div class="t" id="rTitle"></div></div>
-  <div class="rscroll" id="rScroll"><img id="rImg" alt=""></div>
-  <div class="rfoot"><button class="zbtn" type="button" id="rPick">Chọn mẫu này</button></div>
+  <div class="vslot" id="vSlot"></div>
+  <button class="vnav prev vfx" type="button" data-vstep="-1" aria-label="Mẫu trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button class="vnav next vfx" type="button" data-vstep="1" aria-label="Mẫu sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="vwin" id="vWin"><div class="wbar"><i></i><i></i><i></i><span id="vUrl"></span></div><div class="vpane" id="vPane" tabindex="0" aria-label="Trang mẫu, cuộn để xem"><img id="vImg" alt=""></div></div>
+  <aside class="vside vfx">
+    <div class="kicker" id="sKick"></div>
+    <div class="name" id="sName"></div>
+    <div class="priceline"><span class="tag">Từ <strong>599K</strong></span><span>/ 1 trang website</span></div>
+    <p class="shint" style="font-size:14.5px">Mẫu được làm lại theo tên, màu và nội dung của shop bạn.</p>
+    <div class="dacts">
+      <button class="dpick" type="button" data-vpick>Chọn mẫu này</button>
+      <button class="dsq" type="button" data-vsave aria-pressed="false" aria-label="Lưu mẫu" title="Lưu mẫu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button>
+      <button class="dsq" type="button" data-vshare aria-label="Sao chép link mẫu" title="Sao chép link mẫu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></button>
+    </div>
+    <div class="spos"><span>Gói giá · 1 trang</span><span id="sPos"></span></div>
+    <div class="dplans" id="dPlans"></div>
+    <p class="shint">Trang tự cuộn · rê chuột vào để tự xem · <kbd>←</kbd> <kbd>→</kbd> đổi mẫu · <kbd>Esc</kbd> quay lại</p>
+  </aside>
+  <div class="vfoot vfx">
+    <button class="vbtn" type="button" data-vsave aria-pressed="false" aria-label="Lưu mẫu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button>
+    <button class="vpick" type="button" data-vpick>Chọn mẫu này <b>Zalo</b></button>
+    <button class="vbtn" type="button" data-vshare aria-label="Sao chép link mẫu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></button>
+  </div>
+  <div class="vhint" id="vHint" hidden>← Vuốt ngang đổi mẫu · vuốt xuống để đóng</div>
 </div>
 
 <div class="sheet-wrap" id="sheetWrap" hidden>
@@ -235,38 +298,6 @@ a{color:inherit}
     <div class="msg"><label for="msgBox">Tin nhắn gửi Tiệm Web</label><textarea id="msgBox"></textarea></div>
     <a class="zbtn" id="sendBtn" href="https://zalo.me/0948332395" target="_blank" rel="noopener">Sao chép tin nhắn &amp; mở <b>Zalo</b></a>
     <p class="note">Mở Zalo xong, dán tin nhắn vào khung chat để gửi.<br>Zalo <strong>0948 332 395</strong> · <button type="button" data-copy="0948332395">Sao chép số</button></p>
-  </div>
-</div>
-<div class="desk" id="desk" hidden>
-  <header class="dtop">
-    <a class="mark" href="#">Tiệm<span>Web</span><small>phòng mẫu</small></a>
-    <div class="dtabs" role="tablist" id="dtabs"></div>
-    <button class="bag" type="button" id="dBag" aria-label="Mẫu đã lưu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Đã lưu <b id="dBagN">0</b></button>
-    <a class="dzalo" href="https://zalo.me/0948332395" target="_blank" rel="noopener"><b>Zalo</b>0948 332 395</a>
-  </header>
-  <div class="dmain">
-    <section class="dstage" aria-label="Xem mẫu">
-      <button class="dnav prev" type="button" id="dPrev" aria-label="Mẫu trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <div class="dwin" id="dWin"><div class="wbar"><i></i><i></i><i></i><span id="dUrl"></span></div><div class="dpane" id="dPane" tabindex="0" aria-label="Trang mẫu, cuộn để xem"><img id="dImg" alt=""></div></div>
-      <button class="dnav next" type="button" id="dNext" aria-label="Mẫu sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
-      <div class="dhint">Trang tự cuộn · rê chuột vào để tự xem · <kbd>←</kbd> <kbd>→</kbd> đổi mẫu</div>
-    </section>
-    <aside class="dside">
-      <div class="dinfo">
-        <div class="kicker" id="dKick"></div>
-        <div class="name" id="dName"></div>
-        <div class="priceline"><span class="tag">Từ <strong>599K</strong></span><span>/ 1 trang website</span></div>
-        <p>Mẫu được làm lại theo tên, màu và nội dung của shop bạn.</p>
-        <div class="dacts">
-          <button class="dpick" type="button" id="dPick">Chọn mẫu này</button>
-          <button class="dsq" type="button" id="dSave" aria-pressed="false" aria-label="Lưu mẫu" title="Lưu mẫu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button>
-          <button class="dsq" type="button" id="dShare" aria-label="Sao chép link mẫu" title="Sao chép link mẫu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></button>
-        </div>
-      </div>
-      <div class="dlisth"><span id="dListT">Các mẫu</span><span id="dPos"></span></div>
-      <div class="dgrid" id="dGrid"></div>
-      <div class="dplans" id="dPlans"></div>
-    </aside>
   </div>
 </div>
 <div class="toast" id="toast" hidden></div>
@@ -282,230 +313,335 @@ const $=id=>document.getElementById(id);
 const byCode=Object.fromEntries(DATA.items.map(i=>[i.code,i]));
 const catName=Object.fromEntries(DATA.cats.map(c=>[c.id,c.name]));
 const slug=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase().replace(/[^a-z0-9]/g,'')+'.vn';
-const I={
-  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
-  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
-  zoom:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',
-  link:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>'};
+const HEART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const hoverMQ=matchMedia('(hover:hover) and (pointer:fine)');
+const ease='cubic-bezier(.2,.75,.15,1)';
 
+/* ---------- saved ---------- */
 let saved=[];
 try{saved=JSON.parse(localStorage.getItem('tw-saved')||'[]').filter(c=>byCode[c]);}catch(e){}
 const persist=()=>{try{localStorage.setItem('tw-saved',JSON.stringify(saved));}catch(e){}};
 const isSaved=c=>saved.includes(c);
 function toggleSave(c){saved=isSaved(c)?saved.filter(x=>x!==c):[...saved,c];persist();syncSaved();toast(isSaved(c)?`Đã lưu ${c}`:`Bỏ lưu ${c}`);}
-function syncSaved(){$('bagN').textContent=saved.length;if($('dBagN')){$('dBagN').textContent=saved.length;if(typeof dSync==='function')dSync();}document.querySelectorAll('[data-save]').forEach(b=>b.setAttribute('aria-pressed',isSaved(b.dataset.save)));}
+function syncSaved(){
+  document.querySelectorAll('[data-save]').forEach(b=>b.setAttribute('aria-pressed',isSaved(b.dataset.save)));
+  if(vOpen){const c=vList[vIdx].code;document.querySelectorAll('[data-vsave]').forEach(b=>b.setAttribute('aria-pressed',isSaved(c)));}
+  $('sbN').textContent=saved.length; $('saveBar').hidden=!saved.length||vOpen;
+}
 
-/* tabs */
-let filter='all';
-function renderTabs(){
-  const t=[{id:'all',n:'Tất cả'},...DATA.cats.map(c=>({id:c.id,n:SHORT[c.id]||c.name}))];
-  $('tabs').innerHTML=t.map(x=>`<button class="tab" role="tab" type="button" data-tab="${x.id}" aria-selected="${x.id===filter}">${x.n}</button>`).join('');
+/* ---------- filters ---------- */
+let filter='all', shown=[];
+function renderChips(){
+  const t=[{id:'all',n:'Tất cả',c:DATA.items.length},...DATA.cats.map(c=>({id:c.id,n:SHORT[c.id]||c.name,c:DATA.items.filter(i=>i.cat===c.id).length}))];
+  $('chips').innerHTML=t.map(x=>`<button class="fc" type="button" data-f="${x.id}" aria-pressed="${x.id===filter}">${x.n}<i>${x.c}</i></button>`).join('');
 }
-$('tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(!b)return;filter=b.dataset.tab;renderTabs();renderFeed();$('feed').scrollTop=0;b.scrollIntoView({inline:'center',block:'nearest'});});
+$('chips').addEventListener('click',e=>{
+  const b=e.target.closest('[data-f]'); if(!b||b.dataset.f===filter) return;
+  filter=b.dataset.f; renderChips(); buildWall();
+  const y=$('filters').offsetTop-topH(); if(scrollY>y) scrollTo(0,y);
+  const nb=$('chips').querySelector(`[data-f="${filter}"]`); nb&&nb.scrollIntoView({inline:'center',block:'nearest'});
+});
+const topH=()=>$('top').offsetHeight;
 
-/* feed */
-let shown=[];
-function slide(i,k){
-  return `<section class="slide" data-code="${i.code}" data-k="${k}" aria-label="${i.name}">
-    <div class="amb" style="background-image:url(img/${i.code}-bg.webp);background-color:${i.tone}"></div>
-    <div class="stagebox"><div class="win${i.land?' wide':''}" data-zoom="${i.code}" role="button" tabindex="0" aria-label="Xem kỹ ${i.name}">
-      <div class="wbar"><i></i><i></i><i></i><span>${slug(i.name)}</span></div>
-      <div class="pane"><img data-src="img/${i.code}.webp" alt="Mẫu ${i.name}" width="${i.w}" height="${i.h}" decoding="async"></div></div></div>
-    <div class="cap"><div class="kicker"><b>${i.code}</b> · ${catName[i.cat]}${i.land?' · Máy tính':''} · ${k+1}/${shown.length}</div>
-      <div class="name">${i.name}</div>
-      <div class="priceline"><span class="tag">Từ <strong>599K</strong></span><span>Làm lại theo tên shop bạn</span></div></div>
-    <div class="rail">
-      <button class="act" type="button" data-save="${i.code}" aria-pressed="${isSaved(i.code)}"><i>${I.heart}</i>Lưu</button>
-      <button class="act" type="button" data-zoom="${i.code}"><i>${I.zoom}</i>Xem kỹ</button>
-      <button class="act" type="button" data-share="${i.code}"><i>${I.link}</i>Gửi link</button>
-      <button class="act pick" type="button" data-pick="${i.code}"><i>${I.check}</i>Chọn</button>
-    </div>
-    ${k===0?'<div class="swipe"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Vuốt lên xem mẫu tiếp</div>':''}
-  </section>`;
+/* ---------- wall ---------- */
+const nColsFor=()=>innerWidth<640?2:innerWidth<1024?3:4;
+let nCols=0, rio;
+function tileHTML(i,k){
+  const cta=hoverMQ.matches?'Bấm để xem trọn trang':'Chạm để xem trọn trang';
+  return `<article class="tile" data-code="${i.code}" style="--d:${(k%nCols)*90}ms">
+    <button class="tw" type="button" data-open="${i.code}" data-cta="${cta}" aria-label="Xem trọn trang mẫu ${i.name}">
+      <span class="wbar"><i></i><i></i><i></i></span>
+      <span class="tpane"><img src="img/${i.code}${i.land?'':'-t'}.webp" alt="Mẫu ${i.name}"${i.land?' class="land"':''} width="480" height="640" decoding="async"${k>5?' loading="lazy"':''}></span>
+      <span class="tcode">${i.code}</span></button>
+    <div class="tmeta"><div><small>${SHORT[i.cat]}</small><b>${i.name}</b></div>
+      <button class="heart" type="button" data-save="${i.code}" aria-pressed="${isSaved(i.code)}" aria-label="Lưu mẫu ${i.name}">${HEART}</button></div>
+  </article>`;
 }
-function endSlide(){
-  return `<section class="slide end" aria-label="Bảng giá">
-    <h2>Chọn mẫu.<br><em>Làm theo shop bạn.</em></h2>
-    <div class="plans">${PLANS.map(p=>`<div class="plan"><b>${p.name}</b><strong>${p.price}</strong><p>${p.desc}</p></div>`).join('')}</div>
-    <div class="zrow"><a class="zbtn" href="https://zalo.me/0948332395" target="_blank" rel="noopener">Nhắn <b>Zalo</b></a>
-      <span class="znum">0948 332 395</span><button class="copy" type="button" data-copy="0948332395">Sao chép số</button></div>
-  </section>`;
-}
-function renderFeed(){
+function buildWall(){
+  focusTile(null);
   shown=filter==='all'?DATA.items:DATA.items.filter(i=>i.cat===filter);
-  $('feed').innerHTML=shown.map(slide).join('')+endSlide();
-  observe();
-}
-
-/* activate the slide in view: load its image (and the next), start the self-scroll */
-let io;
-function observe(){
-  io&&io.disconnect();
-  io=new IntersectionObserver(es=>es.forEach(en=>{
-    const s=en.target; if(!en.isIntersecting){s.classList.remove('live');return;}
-    const k=+s.dataset.k; [k,k+1].forEach(j=>{const im=document.querySelector(`.slide[data-k="${j}"] .pane img`); if(im&&!im.src){im.src=im.dataset.src;}});
-    const im=s.querySelector('.pane img'); if(!im) return;
-    const go=()=>{const pane=im.parentElement; const travel=Math.max(0,im.getBoundingClientRect().height-pane.clientHeight);
-      s.style.setProperty('--travel',travel+'px'); s.style.setProperty('--dur',Math.max(8,travel/42)+'s'); s.classList.add('live');};
-    im.complete&&im.naturalWidth?go():im.addEventListener('load',go,{once:true});
-    try{history.replaceState(null,'','#'+s.dataset.code);}catch(e){}
-  }),{root:$('feed'),threshold:.6});
-  document.querySelectorAll('.slide[data-k]').forEach(s=>io.observe(s));
-}
-
-/* actions */
-document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-save],[data-zoom],[data-share],[data-pick],[data-copy]'); if(!t) return;
-  if(t.dataset.save) toggleSave(t.dataset.save);
-  else if(t.dataset.zoom) openReader(t.dataset.zoom);
-  else if(t.dataset.share) shareLink(t.dataset.share);
-  else if(t.dataset.pick) openSheet([t.dataset.pick,...saved.filter(c=>c!==t.dataset.pick)]);
-  else if(t.dataset.copy) copy(t.dataset.copy,'Đã sao chép số Zalo');
-});
-document.addEventListener('keydown',e=>{
-  if(e.key==='Enter'&&e.target.matches('.win')) openReader(e.target.dataset.zoom);
-  if(e.key==='Escape'){if(!$('sheetWrap').hidden)closeSheet();else if(!$('reader').hidden)closeReader();}
-});
-document.addEventListener('pointerdown',e=>{const w=e.target.closest('.win'); if(w) w.classList.add('hold');});
-document.addEventListener('pointerup',()=>document.querySelectorAll('.win.hold').forEach(w=>w.classList.remove('hold')));
-$('bag').onclick=()=>{if(!saved.length){toast('Bấm ♡ Lưu để gom các mẫu bạn thích');return;} openSheet(saved.slice());};
-
-function shareLink(code){
-  const base=(location.href.split('#')[0]);
-  copy(base+'#'+code,`Đã sao chép link mẫu ${code}`);
-}
-
-/* reader */
-let readerCode=null;
-function openReader(code){
-  const i=byCode[code]; readerCode=code;
-  $('rTitle').innerHTML=`<span>${code}</span>${i.name}`;
-  $('rImg').src=`img/${code}.webp`; $('rImg').alt=`Toàn trang mẫu ${i.name}`; $('rImg').width=i.w; $('rImg').height=i.h;
-  $('reader').hidden=false; $('rScroll').scrollTop=0; $('rClose').focus({preventScroll:true});
-}
-function closeReader(){$('reader').hidden=true;}
-$('rClose').onclick=closeReader;
-$('rPick').onclick=()=>openSheet([readerCode,...saved.filter(c=>c!==readerCode)]);
-
-/* sheet */
-let sheetCodes=[],plan='co-ban';
-function openSheet(codes){
-  sheetCodes=codes;
-  $('sheetTitle').textContent=codes.length>1?`Gửi ${codes.length} mẫu`:'Chọn gói';
-  $('picked').innerHTML=codes.map(c=>`<div class="pk"><img src="img/${c}-t.webp" alt=""><div style="min-width:0"><b>${c}</b><span>${byCode[c].name}</span></div></div>`).join('');
-  $('opts').innerHTML='<legend>Gói website · giá cho 1 trang</legend>'+PLANS.map(p=>`<label class="opt"><input type="radio" name="plan" id="plan-${p.id}" value="${p.id}" ${p.id===plan?'checked':''}><div><b>${p.name}</b><p>${p.desc}</p></div><strong>${p.price}</strong></label>`).join('');
-  writeMsg(); $('sheetWrap').hidden=false;
-}
-function writeMsg(){
-  const p=PLANS.find(x=>x.id===plan), line=c=>`${c} – ${byCode[c].name}`;
-  let m=`Chào Tiệm Web! Mình muốn làm website theo mẫu ${line(sheetCodes[0])}, ${p.name.toLowerCase()} ${p.price}.`;
-  if(sheetCodes.length>1) m+=`\nMẫu mình cũng thích: ${sheetCodes.slice(1).map(line).join(', ')}.`;
-  $('msgBox').value=m+`\nTên shop của mình: `;
-}
-$('opts').addEventListener('change',e=>{if(e.target.name==='plan'){plan=e.target.value;writeMsg();}});
-function closeSheet(){$('sheetWrap').hidden=true;}
-$('sheetWrap').addEventListener('click',e=>{if(e.target===$('sheetWrap'))closeSheet();});
-$('sendBtn').addEventListener('click',()=>copy($('msgBox').value,'Đã sao chép tin nhắn, dán vào Zalo để gửi'));
-
-function copy(text,ok){
-  const fb=()=>{const ta=$('msgBox'); if(!$('sheetWrap').hidden&&ta.value===text){ta.focus();ta.select();} toast('Bấm giữ để sao chép: '+text.slice(0,40));};
-  try{navigator.clipboard.writeText(text).then(()=>toast(ok),fb);}catch(e){fb();}
-}
-let tt; function toast(m){const t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2200);}
-
-/* keyboard paging on desktop */
-document.addEventListener('keydown',e=>{
-  if(!$('reader').hidden||!$('sheetWrap').hidden) return;
-  if(deskOn){
-    if(['ArrowRight','ArrowDown'].includes(e.key)){e.preventDefault();dStep(1);}
-    if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();dStep(-1);}
-    return;
+  nCols=nColsFor(); const C=Array.from({length:nCols},()=>[]);
+  shown.forEach((it,k)=>C[k%nCols].push(tileHTML(it,k)));
+  $('wall').innerHTML=C.map(c=>`<div class="col">${c.join('')}</div>`).join('');
+  $('hCount').textContent=shown.length;
+  rio&&rio.disconnect();
+  const tiles=document.querySelectorAll('.tile');
+  if(reduce||!('IntersectionObserver' in window)){tiles.forEach(t=>t.classList.add('in'));}
+  else{
+    rio=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');rio.unobserve(en.target);needPick=true;}}),{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    tiles.forEach(t=>rio.observe(t));
   }
-  if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();const f=$('feed');f.scrollBy({top:(e.key==='ArrowDown'?1:-1)*f.clientHeight,behavior:'smooth'});}
+  needPick=true;
+}
+const tileOf=c=>document.querySelector(`.tile[data-code="${c}"]`);
+
+/* the lifted tile scrolls its own page */
+const pv={tile:null,img:null,off:0,dir:1,wait:0,max:0};
+function ensureFull(t,cb){
+  const im=t.querySelector('.tpane img'), it=byCode[t.dataset.code];
+  if(it.land){cb&&cb();return;}
+  if(im.dataset.full){cb&&cb();return;}
+  const pre=new Image(); pre.onload=()=>{im.width=it.w; im.height=it.h; im.src=pre.src; im.dataset.full='1'; cb&&cb();}; pre.src=`img/${it.code}.webp`;
+}
+function focusTile(t,startFrac){
+  if(pv.tile===t) return;
+  if(pv.tile){pv.tile.classList.remove('on'); const im=pv.img; im.style.transition='transform .8s cubic-bezier(.2,.8,.2,1)'; im.style.transform='translateY(0)';}
+  Object.assign(pv,{tile:t,img:t?t.querySelector('.tpane img'):null,off:0,dir:1,wait:performance.now()+650,max:0});
+  if(!t) return;
+  t.classList.add('on');
+  if(reduce||byCode[t.dataset.code].land) return;
+  pv.img.style.transition='none';
+  ensureFull(t,()=>{
+    if(pv.tile!==t) return;
+    pv.max=Math.max(0,pv.img.offsetHeight-pv.img.parentElement.clientHeight);
+    if(startFrac){pv.off=Math.min(pv.max,startFrac*pv.img.offsetHeight); pv.img.style.transform=`translateY(${-pv.off}px)`; pv.wait=performance.now()+900;}
+  });
+}
+let needPick=true;
+function pickCenter(){
+  needPick=false;
+  if(hoverMQ.matches||vOpen) return;
+  const cy=innerHeight*.5, th=topH()+50; let best=null,bd=1e9;
+  document.querySelectorAll('.tile.in').forEach(t=>{
+    const r=t.getBoundingClientRect(); if(r.bottom<th+60||r.top>innerHeight-80) return;
+    const d=Math.abs((r.top+r.bottom)/2-cy); if(d<bd){bd=d;best=t;}
+  });
+  focusTile(best);
+}
+$('wall').addEventListener('pointerover',e=>{if(!hoverMQ.matches||vOpen)return;const t=e.target.closest('.tile');if(t)focusTile(t);});
+$('wall').addEventListener('pointerleave',()=>{if(hoverMQ.matches&&!vOpen)focusTile(null);});
+
+/* header turns solid once the page moves */
+function onScroll(){
+  needPick=true;
+  $('top').classList.toggle('solid',scrollY>8);
+  $('filters').classList.toggle('solid',$('filters').getBoundingClientRect().top<=topH()+1);
+}
+addEventListener('scroll',onScroll,{passive:true});
+
+/* ---------- viewer ---------- */
+let vOpen=false, vList=[], vIdx=0, animating=false, pushed=false, lastTile=null;
+const V={pos:0,dir:1,wait:0,userUntil:0,hover:false};
+const vWin=$('vWin'), vPane=$('vPane'), vImg=$('vImg');
+function placeWin(){
+  const r=$('vSlot').getBoundingClientRect();
+  Object.assign(vWin.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
+  return r;
+}
+const rectKF=(r,rad)=>({left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px',borderRadius:rad});
+function fillV(k){
+  vIdx=k; const i=vList[k];
+  vImg.style.backgroundImage=i.land?'none':`url(img/${i.code}-t.webp)`;
+  vImg.width=i.w; vImg.height=i.h; vImg.alt=`Toàn trang mẫu ${i.name}`; vImg.src=`img/${i.code}.webp`;
+  vPane.classList.toggle('land',!!i.land);
+  $('vUrl').textContent=slug(i.name);
+  $('vCode').textContent=`${i.code} · ${SHORT[i.cat]}`; $('vName').textContent=i.name;
+  $('vPos').textContent=`${k+1}/${vList.length}`;
+  $('sKick').innerHTML=`<b>${i.code}</b> · ${catName[i.cat]}${i.land?' · Giao diện máy tính':''}`; $('sName').textContent=i.name;
+  $('sPos').textContent=`Mẫu ${String(k+1).padStart(2,'0')} / ${String(vList.length).padStart(2,'0')}`;
+  document.querySelectorAll('[data-vstep="-1"]').forEach(b=>b.disabled=k===0);
+  document.querySelectorAll('[data-vstep="1"]').forEach(b=>b.disabled=k===vList.length-1);
+  document.querySelectorAll('[data-vsave]').forEach(b=>b.setAttribute('aria-pressed',isSaved(i.code)));
+  vPane.scrollTop=0; Object.assign(V,{pos:0,dir:1,wait:performance.now()+1500});
+  [vList[k+1],vList[k-1]].forEach(n=>{if(n){const p=new Image();p.src=`img/${n.code}.webp`;}});
+}
+function openV(code,fromTile){
+  if(vOpen||animating) return;
+  vList=shown; let k=vList.findIndex(i=>i.code===code);
+  if(k<0){filter='all';renderChips();buildWall();vList=shown;k=vList.findIndex(i=>i.code===code);if(k<0)return;}
+  const tw=fromTile&&fromTile.querySelector('.tw');
+  let f=0; if(fromTile&&pv.tile===fromTile&&pv.max>0&&pv.img.offsetHeight) f=pv.off/pv.img.offsetHeight;
+  const from=tw&&tw.getBoundingClientRect();
+  focusTile(null); lastTile=fromTile||tileOf(code);
+  vOpen=true; fillV(k);
+  $('vw').hidden=false; document.documentElement.classList.add('lock'); $('saveBar').hidden=true;
+  const to=placeWin();
+  if(location.hash.slice(1).toUpperCase()===code&&!pushed) history.replaceState(null,'',location.pathname+location.search);
+  history.pushState({tw:1},'','#'+code); pushed=true;
+  const fx=document.querySelectorAll('#vw .vfx');
+  if(tw&&!reduce){
+    animating=true; tw.style.visibility='hidden';
+    vImg.style.transform=`translateY(${-f*100}%)`;
+    const a=vWin.animate([rectKF(from,'12px'),rectKF(to,'18px')],{duration:540,easing:ease});
+    $('vbg').animate([{opacity:0},{opacity:1}],{duration:380,easing:'ease-out'});
+    fx.forEach(e=>e.animate([{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'none'}],{duration:340,delay:240,fill:'backwards',easing:'ease-out'}));
+    a.onfinish=()=>{animating=false; vImg.style.transform=''; vPane.scrollTop=f*vImg.offsetHeight; V.pos=vPane.scrollTop; tw.style.visibility='';};
+  }else if(!reduce){
+    $('vw').animate([{opacity:0},{opacity:1}],{duration:260});
+    vWin.animate([{opacity:0,transform:'scale(.96)'},{opacity:1,transform:'none'}],{duration:360,easing:ease});
+  }
+  showHint();
+  $('vClose').focus({preventScroll:true});
+}
+function closeV(){ if(!vOpen||animating) return; if(pushed){history.back();} else doClose(); }
+addEventListener('popstate',()=>{ if(vOpen){pushed=false; doClose();} });
+function doClose(){
+  if(!vOpen) return;
+  const code=vList[vIdx].code, t=tileOf(code);
+  const f=vImg.offsetHeight?vPane.scrollTop/vImg.offsetHeight:0;
+  const fx=document.querySelectorAll('#vw .vfx');
+  const finish=()=>{
+    $('vw').hidden=true; vOpen=false; animating=false; vImg.style.transform='';
+    [vWin,$('vbg'),$('vw'),...fx].forEach(e=>e.getAnimations().forEach(a=>a.cancel()));
+    vWin.style.transform='';
+    document.documentElement.classList.remove('lock');
+    if(location.hash) history.replaceState(null,'',location.pathname+location.search);
+    syncSaved(); needPick=true;
+  };
+  if(t&&!reduce){
+    const fromR=vWin.getBoundingClientRect(); vWin.style.transform='';
+    t.classList.add('in');
+    let r=t.getBoundingClientRect();
+    if(r.top<topH()+60||r.bottom>innerHeight-20){scrollTo(0,scrollY+r.top-(innerHeight-r.height)/2);onScroll();}
+    const tw=t.querySelector('.tw'); const tr=tw.getBoundingClientRect(); tw.style.visibility='hidden';
+    animating=true; vImg.style.transform=`translateY(${-f*100}%)`; vPane.scrollTop=0;
+    const a=vWin.animate([rectKF(fromR,'18px'),rectKF(tr,'12px')],{duration:460,easing:'cubic-bezier(.3,.7,.2,1)',fill:'forwards'});
+    $('vbg').animate([{opacity:1},{opacity:0}],{duration:420,easing:'ease-in',fill:'forwards'});
+    fx.forEach(e=>e.animate([{opacity:1},{opacity:0}],{duration:160,fill:'forwards'}));
+    a.onfinish=()=>{
+      tw.style.visibility=''; finish();
+      if(!hoverMQ.matches){focusTile(t,f); needPick=false;}
+      tw.focus({preventScroll:true});
+    };
+  }else finish();
+}
+function stepV(d){
+  const k=vIdx+d; if(!vOpen||animating) return;
+  if(k<0||k>=vList.length){vPane.animate([{transform:'none'},{transform:`translateX(${-d*18}px)`},{transform:'none'}],{duration:300});return;}
+  animating=true;
+  vPane.animate([{transform:vPane.style.transform||'none',opacity:1},{transform:`translateX(${-d*60}px)`,opacity:0}],{duration:170,easing:'ease-in',fill:'forwards'}).onfinish=()=>{
+    vPane.style.transform=''; fillV(k);
+    vPane.getAnimations().forEach(a=>a.cancel());
+    vPane.animate([{transform:`translateX(${d*60}px)`,opacity:0},{transform:'none',opacity:1}],{duration:320,easing:ease}).onfinish=()=>{animating=false;};
+    try{history.replaceState(history.state,'','#'+vList[k].code);}catch(e){}
+  };
+}
+function showHint(){
+  if(hoverMQ.matches) return; let seen=false; try{seen=!!localStorage.getItem('tw-hint');}catch(e){}
+  if(seen) return; try{localStorage.setItem('tw-hint','1');}catch(e){}
+  const h=$('vHint'); h.hidden=false; h.style.opacity=1; setTimeout(()=>{h.style.opacity=0;setTimeout(()=>h.hidden=true,600);},3200);
+}
+
+/* touch: swipe sideways to change, pull down at the top to close */
+let sw=null;
+vPane.addEventListener('touchstart',e=>{
+  if(e.touches.length>1||animating){sw=null;return;}
+  const p=e.touches[0]; sw={x:p.clientX,y:p.clientY,atTop:vPane.scrollTop<=1,mode:null,dx:0,dy:0};
+  V.userUntil=performance.now()+5000;
+},{passive:true});
+vPane.addEventListener('touchmove',e=>{
+  if(!sw) return; const p=e.touches[0]; const dx=p.clientX-sw.x, dy=p.clientY-sw.y; sw.dx=dx; sw.dy=dy;
+  if(!sw.mode){
+    if(Math.abs(dx)>12&&Math.abs(dx)>Math.abs(dy)*1.2) sw.mode='h';
+    else if(dy>10&&sw.atTop&&dy>Math.abs(dx)) sw.mode='d';
+    else if(Math.abs(dy)>10) sw.mode='v';
+  }
+  if(sw.mode==='h'){e.preventDefault(); vPane.style.transform=`translateX(${dx*.55}px)`;}
+  if(sw.mode==='d'){e.preventDefault(); const y=Math.max(0,dy); vWin.style.transform=`translateY(${y*.6}px) scale(${1-Math.min(.12,y/1800)})`; $('vbg').style.opacity=1-Math.min(.5,y/600);}
+},{passive:false});
+vPane.addEventListener('touchend',()=>{
+  if(!sw) return; const s=sw; sw=null;
+  if(s.mode==='h'){
+    if(Math.abs(s.dx)>60) stepV(s.dx<0?1:-1);
+    else vPane.animate([{transform:vPane.style.transform},{transform:'none'}],{duration:220,easing:ease}).onfinish=()=>vPane.style.transform='';
+    if(Math.abs(s.dx)<=60) vPane.style.transform='';
+  }
+  if(s.mode==='d'){
+    $('vbg').style.opacity='';
+    if(s.dy>110) closeV();
+    else{const tf=vWin.style.transform; vWin.style.transform=''; vWin.animate([{transform:tf},{transform:'none'}],{duration:260,easing:ease});}
+  }
 });
+['wheel','keydown','pointerdown'].forEach(ev=>vPane.addEventListener(ev,()=>V.userUntil=performance.now()+5000,{passive:true}));
+vWin.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')V.hover=true;});
+vWin.addEventListener('pointerleave',()=>{V.hover=false;V.wait=performance.now()+900;});
 
-/* ---------- desktop showroom ---------- */
-let deskOn=false, dList=[], dIdx=0;
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function dRenderTabs(){
-  const t=[{id:'all',n:'Tất cả'},...DATA.cats.map(c=>({id:c.id,n:SHORT[c.id]||c.name}))];
-  $('dtabs').innerHTML=t.map(x=>`<button class="tab" role="tab" type="button" data-dtab="${x.id}" aria-selected="${x.id===filter}">${x.n}</button>`).join('');
-}
-$('dtabs').addEventListener('click',e=>{const b=e.target.closest('[data-dtab]');if(!b)return;filter=b.dataset.dtab;dRenderTabs();renderTabs();renderFeed();dBuild(0);});
-function dBuild(k){
-  dList=filter==='all'?DATA.items:DATA.items.filter(i=>i.cat===filter);
-  $('dListT').textContent=filter==='all'?`Tất cả mẫu · ${dList.length}`:`${catName[filter]} · ${dList.length}`;
-  $('dGrid').innerHTML=dList.map((i,j)=>`<button class="dth" type="button" data-dsel="${j}" aria-label="${i.code} ${i.name}"><img src="img/${i.code}-t.webp" alt="" loading="lazy"><span>${i.code}</span><i class="sv">♥</i></button>`).join('');
-  dShow(k);
-}
-function dShow(k){
-  dIdx=Math.max(0,Math.min(dList.length-1,k)); const i=dList[dIdx];
-  $('dImg').src=`img/${i.code}.webp`; $('dImg').alt=`Toàn trang mẫu ${i.name}`; $('dImg').width=i.w; $('dImg').height=i.h;
-  $('dWin').classList.toggle('wide',!!i.land);
-  $('dUrl').textContent=slug(i.name);
-  $('dKick').innerHTML=`<b>${i.code}</b> · ${catName[i.cat]}${i.land?' · Giao diện máy tính':''}`;
-  $('dName').textContent=i.name;
-  $('dPos').textContent=`${String(dIdx+1).padStart(2,'0')} / ${String(dList.length).padStart(2,'0')}`;
-  $('dPrev').disabled=dIdx===0; $('dNext').disabled=dIdx===dList.length-1;
-  $('dPane').scrollTop=0; tour.dir=1; tour.wait=performance.now()+1400;
-  dSync();
-  const cur=document.querySelector(`[data-dsel="${dIdx}"]`); if(cur) cur.scrollIntoView({block:'nearest'});
-  const nx=dList[dIdx+1]; if(nx){const pre=new Image(); pre.src=`img/${nx.code}.webp`;}
-  try{history.replaceState(null,'','#'+i.code);}catch(e){}
-}
-function dSync(){
-  if(!dList.length) return; const c=dList[dIdx].code;
-  $('dSave').setAttribute('aria-pressed',isSaved(c));
-  document.querySelectorAll('[data-dsel]').forEach(b=>{const j=+b.dataset.dsel; b.setAttribute('aria-current',j===dIdx); b.classList.toggle('saved',isSaved(dList[j].code));});
-}
-function dStep(d){if(dIdx+d>=0&&dIdx+d<dList.length) dShow(dIdx+d);}
-$('dGrid').addEventListener('click',e=>{const b=e.target.closest('[data-dsel]'); if(b) dShow(+b.dataset.dsel);});
-$('dPrev').onclick=()=>dStep(-1); $('dNext').onclick=()=>dStep(1);
-$('dPick').onclick=()=>{const c=dList[dIdx].code; openSheet([c,...saved.filter(x=>x!==c)]);};
-$('dSave').onclick=()=>toggleSave(dList[dIdx].code);
-$('dShare').onclick=()=>shareLink(dList[dIdx].code);
-$('dBag').onclick=()=>$('bag').click();
-$('dPlans').innerHTML=PLANS.map(p=>`<div class="dplan"><small>${p.name.replace('Gói ','')}</small><b>${p.price}</b></div>`).join('');
-
-/* gentle self-scroll of the big window; stops while the pointer is over it or the visitor scrolls */
-const tour={dir:1,wait:0,hover:false,last:0,userUntil:0};
-$('dPane').addEventListener('pointerenter',()=>tour.hover=true);
-$('dPane').addEventListener('pointerleave',()=>{tour.hover=false;tour.wait=performance.now()+900;});
-['wheel','touchstart','keydown'].forEach(ev=>$('dPane').addEventListener(ev,()=>tour.userUntil=performance.now()+5000,{passive:true}));
+/* ---------- one animation loop: tile preview + viewer self-scroll ---------- */
+let last=0;
 function tick(now){
-  const dt=Math.min(64,now-(tour.last||now)); tour.last=now;
-  const p=$('dPane');
-  if(deskOn&&!reduce&&!tour.hover&&now>tour.userUntil&&now>tour.wait&&$('sheetWrap').hidden){
-    const max=p.scrollHeight-p.clientHeight;
-    if(max>4){
-      p.scrollTop+=tour.dir*(tour.dir>0?34:90)*dt/1000;
-      if(tour.dir>0&&p.scrollTop>=max-1){tour.dir=-1;tour.wait=now+1600;}
-      else if(tour.dir<0&&p.scrollTop<=0){tour.dir=1;tour.wait=now+1800;}
+  const dt=Math.min(64,now-(last||now)); last=now;
+  if(!vOpen){
+    if(needPick) pickCenter();
+    if(pv.tile&&pv.max>0&&now>pv.wait&&!reduce){
+      pv.off+=pv.dir*(pv.dir>0?30:90)*dt/1000;
+      if(pv.dir>0&&pv.off>=pv.max){pv.off=pv.max;pv.dir=-1;pv.wait=now+1300;}
+      else if(pv.dir<0&&pv.off<=0){pv.off=0;pv.dir=1;pv.wait=now+1600;}
+      pv.img.style.transform=`translateY(${-pv.off}px)`;
+    }
+  }else if(!animating&&!reduce&&!sw){
+    const max=vPane.scrollHeight-vPane.clientHeight;
+    if(Math.abs(vPane.scrollTop-V.pos)>2) V.pos=vPane.scrollTop;
+    if(max>4&&!V.hover&&now>V.userUntil&&now>V.wait&&$('sheetWrap').hidden){
+      V.pos+=V.dir*(V.dir>0?36:110)*dt/1000;
+      if(V.dir>0&&V.pos>=max){V.pos=max;V.dir=-1;V.wait=now+1600;}
+      else if(V.dir<0&&V.pos<=0){V.pos=0;V.dir=1;V.wait=now+1800;}
+      vPane.scrollTop=V.pos;
     }
   }
   requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
 
-/* switch between phone feed and desktop showroom */
-const wideMQ=matchMedia('(min-width:1024px) and (min-height:560px)');
-function applyMode(){
-  const want=wideMQ.matches; if(want===deskOn&&dList.length) return;
-  deskOn=want;
-  $('desk').hidden=!deskOn; $('feed').hidden=deskOn; document.querySelector('.chrome').hidden=deskOn;
-  if(deskOn){
-    dRenderTabs();
-    const code=(location.hash||'').slice(1).toUpperCase();
-    dList=filter==='all'?DATA.items:DATA.items.filter(i=>i.cat===filter);
-    dBuild(Math.max(0,dList.findIndex(i=>i.code===code)));
+/* ---------- actions ---------- */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-open],[data-save],[data-copy],[data-vstep],[data-vsave],[data-vshare],[data-vpick]'); if(!t) return;
+  if(t.dataset.open) openV(t.dataset.open,t.closest('.tile'));
+  else if(t.dataset.save) toggleSave(t.dataset.save);
+  else if(t.dataset.copy) copy(t.dataset.copy,'Đã sao chép số Zalo');
+  else if(t.dataset.vstep) stepV(+t.dataset.vstep);
+  else if(t.hasAttribute('data-vsave')) toggleSave(vList[vIdx].code);
+  else if(t.hasAttribute('data-vshare')) shareLink(vList[vIdx].code);
+  else if(t.hasAttribute('data-vpick')){const c=vList[vIdx].code; openSheet([c,...saved.filter(x=>x!==c)]);}
+});
+$('vClose').onclick=closeV;
+$('saveBar').onclick=()=>openSheet(saved.slice());
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){if(!$('sheetWrap').hidden)closeSheet();else if(vOpen)closeV();return;}
+  if(vOpen&&$('sheetWrap').hidden){
+    if(e.key==='ArrowRight'){e.preventDefault();stepV(1);}
+    if(e.key==='ArrowLeft'){e.preventDefault();stepV(-1);}
   }
-}
-wideMQ.addEventListener?wideMQ.addEventListener('change',applyMode):wideMQ.addListener(applyMode);
+});
+function shareLink(code){copy(location.href.split('#')[0]+'#'+code,`Đã sao chép link mẫu ${code}`);}
 
-renderTabs(); renderFeed(); syncSaved(); applyMode();
+/* ---------- sheet ---------- */
+let sheetCodes=[],plan='co-ban';
+function openSheet(codes){
+  sheetCodes=codes;
+  $('sheetTitle').textContent=codes.length>1?`Gửi ${codes.length} mẫu`:'Chọn gói';
+  $('picked').innerHTML=codes.map(c=>`<div class="pk"><img src="img/${c}-t.webp" alt=""><div style="min-width:0"><b>${c}</b><span>${byCode[c].name}</span></div></div>`).join('');
+  $('opts').innerHTML='<legend>Gói website · giá cho 1 trang</legend>'+PLANS.map(p=>`<label class="opt"><input type="radio" name="plan" value="${p.id}" ${p.id===plan?'checked':''}><div><b>${p.name}</b><p>${p.desc}</p></div><strong>${p.price}</strong></label>`).join('');
+  writeMsg(); $('sheetWrap').hidden=false;
+}
+function writeMsg(){
+  const p=PLANS.find(x=>x.id===plan), line=c=>`${c} – ${byCode[c].name}`;
+  let m=`Chào Tiệm Web! Mình muốn làm website theo mẫu ${line(sheetCodes[0])}, ${p.name.toLowerCase()} ${p.price}.`;
+  if(sheetCodes.length>1) m+=`\nMẫu mình cũng thích: ${sheetCodes.slice(1).map(line).join(', ')}.`;
+  $('msgBox').value=m+`\nNgành và tên shop của mình: `;
+}
+$('opts').addEventListener('change',e=>{if(e.target.name==='plan'){plan=e.target.value;writeMsg();}});
+function closeSheet(){$('sheetWrap').hidden=true;}
+$('sheetWrap').addEventListener('click',e=>{if(e.target===$('sheetWrap'))closeSheet();});
+$('sendBtn').addEventListener('click',()=>copy($('msgBox').value,'Đã sao chép tin nhắn, dán vào Zalo để gửi'));
+function copy(text,ok){
+  const fb=()=>{const ta=$('msgBox'); if(!$('sheetWrap').hidden&&ta.value===text){ta.focus();ta.select();} toast('Bấm giữ để sao chép: '+text.slice(0,40));};
+  try{navigator.clipboard.writeText(text).then(()=>toast(ok),fb);}catch(e){fb();}
+}
+let tt; function toast(m){const t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2200);}
+
+/* ---------- boot ---------- */
+$('plans').innerHTML=PLANS.map(p=>`<div class="plan"><b>${p.name}</b><strong>${p.price}</strong><p>${p.desc}</p></div>`).join('');
+$('dPlans').innerHTML=PLANS.map(p=>`<div class="dplan"><small>${p.name.replace('Gói ','')}</small><b>${p.price}</b></div>`).join('');
+function setTop(){document.documentElement.style.setProperty('--toph',topH()+'px');}
+setTop(); renderChips(); buildWall(); syncSaved(); onScroll();
+$('hTap').textContent=hoverMQ.matches?'Bấm vào mẫu':'Chạm vào mẫu';
+addEventListener('resize',()=>{
+  setTop(); if(nColsFor()!==nCols&&!vOpen) buildWall();
+  if(vOpen&&!animating) placeWin(); needPick=true;
+});
 const start=(location.hash||'').slice(1).toUpperCase();
-if(!deskOn&&byCode[start]){const s=document.querySelector(`.slide[data-code="${start}"]`); if(s) $('feed').scrollTop=s.offsetTop;}
+if(byCode[start]) requestAnimationFrame(()=>openV(start,null));
 </script>
 
-</body>
-</html>
+</body></html>
