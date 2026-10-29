@@ -314,6 +314,17 @@ const SHORT={spa:'Spa',clinic:'Phòng khám',class:'Lớp học',bds:'Bất đ�
 const $=id=>document.getElementById(id);
 const byCode=Object.fromEntries(DATA.items.map(i=>[i.code,i]));
 const catName=Object.fromEntries(DATA.cats.map(c=>[c.id,c.name]));
+/* "Tất cả" mixes industries for the grid it will fill: each tile differs from its left, upper and diagonal neighbours */
+function mixFor(n){
+  const q={}; DATA.cats.forEach(c=>q[c.id]=DATA.items.filter(i=>i.cat===c.id)); const o=[];
+  while(o.length<DATA.items.length){
+    const k=o.length, avoid=new Set([o[k-1],o[k-n],o[k-n-1],o[k-n+1]].filter(Boolean).map(i=>i.cat));
+    const used=x=>{for(let j=o.length-1;j>=0;j--) if(o[j].cat===x) return j; return -1;};
+    const c=DATA.cats.map(x=>x.id).filter(x=>q[x].length).sort((x,y)=>(used(x)-used(y))||(q[y].length-q[x].length));
+    const pick=c.find(x=>!avoid.has(x))||c.find(x=>!o[k-1]||x!==o[k-1].cat)||c[0]; o.push(q[pick].shift());
+  }
+  return o;
+}
 const slug=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase().replace(/[^a-z0-9]/g,'')+'.vn';
 const HEART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -362,8 +373,8 @@ function tileHTML(i,k){
 }
 function buildWall(){
   focusTile(null);
-  shown=filter==='all'?DATA.items:DATA.items.filter(i=>i.cat===filter);
-  nCols=nColsFor(); const C=Array.from({length:nCols},()=>[]);
+  nCols=nColsFor();
+  shown=filter==='all'?mixFor(nCols):DATA.items.filter(i=>i.cat===filter); const C=Array.from({length:nCols},()=>[]);
   shown.forEach((it,k)=>C[k%nCols].push(tileHTML(it,k)));
   $('wall').innerHTML=C.map(c=>`<div class="col">${c.join('')}</div>`).join('');
   $('hCount').textContent=shown.length;
