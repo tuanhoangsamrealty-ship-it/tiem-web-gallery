@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="vi"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#C8102E">
-<meta name="description" content="Phòng mẫu Tiệm Web: 18 mẫu landing page cho shop, chỉ từ 599K. Chạm vào mẫu để xem trọn trang.">
+<meta name="theme-color" content="#8E0B14">
+<meta name="description" content="Phòng mẫu Tiệm Web: 18 mẫu landing page cho shop, ngành nào cũng làm, chỉ từ 599K. Chạm vào mẫu để xem trọn trang.">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Phòng mẫu Tiệm Web</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,8 +33,23 @@ a{color:inherit}
 svg{display:block}
 
 /* top bar */
-.top{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:calc(env(safe-area-inset-top,0px) + 10px) var(--gx) 10px;transition:background .25s,box-shadow .25s}
+.top{position:sticky;top:0;z-index:30;transition:background .25s}
+.tbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px var(--gx)}
+/* industry ticker: pinned at the very top, loops forever, pauses under the finger or mouse */
+.tick{display:flex;align-items:stretch;height:calc(36px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);background:var(--gold);color:var(--gold-ink);overflow:hidden;box-shadow:0 1px 0 rgba(142,11,20,.25)}
+.tlab{flex:none;position:relative;z-index:1;display:flex;align-items:center;gap:6px;padding:0 10px 0 var(--gx);background:var(--gold-ink);color:var(--gold);
+  font-family:var(--cond);font-weight:800;font-size:14px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.tlab::after{content:"";position:absolute;left:100%;top:0;bottom:0;width:14px;background:var(--gold-ink);clip-path:polygon(0 0,100% 50%,0 100%)}
+.tlab svg{width:14px;height:14px}
+.tlg{display:none}
+.tvp{flex:1;min-width:0;overflow:hidden;padding-left:14px;-webkit-mask-image:linear-gradient(90deg,transparent 14px,#000 34px,#000 calc(100% - 20px),transparent);mask-image:linear-gradient(90deg,transparent 14px,#000 34px,#000 calc(100% - 20px),transparent)}
+.trk{display:flex;align-items:center;height:100%;width:max-content;animation:tick var(--td,80s) linear infinite;will-change:transform}
+.trk span{display:flex;align-items:center;gap:12px;padding-right:12px;white-space:nowrap;font-family:var(--cond);font-weight:700;font-size:16.5px;letter-spacing:.03em;text-transform:uppercase}
+.trk span.hot{font-family:var(--display);font-weight:800;text-transform:none;letter-spacing:-.02em;font-size:16px}
+.trk span::after{content:"✦";font-size:11px;color:var(--red)}
+.tick.hold .trk{animation-play-state:paused}
+@media (hover:hover) and (pointer:fine){.tick:hover .trk{animation-play-state:paused}}
+@keyframes tick{to{transform:translateX(-50%)}}
 .top.solid,.filters.solid{background:#A50A1F}
 .top.solid{box-shadow:none}
 .mark{font-family:var(--display);font-weight:800;font-size:23px;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:baseline;gap:6px}
@@ -198,7 +213,8 @@ svg{display:block}
 @media (min-width:640px){:root{--gap:20px;--off:80px}}
 @media (min-width:1024px){
   :root{--gx:40px;--gap:26px;--off:110px;--toph:68px}
-  .top{padding:16px max(var(--gx),calc((100% - 1240px)/2 + var(--gx)))}
+  .tbar{padding:14px max(var(--gx),calc((100% - 1240px)/2 + var(--gx)))}
+  .tick{height:40px}.tsm{display:none}.tlg{display:inline}.tlab{font-size:15px;padding-left:max(var(--gx),calc((100% - 1240px)/2 + var(--gx)))}.trk span{font-size:18px}.trk span.hot{font-size:17.5px}
   .mark{font-size:26px}
   .zpill{height:42px;font-size:15px}.zpill .num{display:inline}.zpill .txt{display:none}
   .hero{display:grid;grid-template-columns:auto 1fr;align-items:end;gap:48px;padding:20px var(--gx) 22px}
@@ -230,13 +246,16 @@ svg{display:block}
   .spos{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);border-top:1px solid var(--hair);padding-top:14px;margin-top:8px}
 }
 @media (min-width:1024px) and (max-height:760px){.name{font-size:34px}.dpick,.dsq{height:50px}.dsq{width:50px}.dplans{display:none}}
-@media (prefers-reduced-motion:reduce){.tile{transition:none}.tw{transition:none}.sheet,.savebar{animation:none}}
+@media (prefers-reduced-motion:reduce){.trk{animation:none}.tvp{overflow-x:auto;scrollbar-width:none}.tile{transition:none}.tw{transition:none}.sheet,.savebar{animation:none}}
 </style>
 </head><body>
 
 <header class="top" id="top">
+  <div class="tick" id="tick" aria-label="Tiệm Web làm website cho mọi ngành"><span class="tlab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="tsm">Làm mọi ngành</span><span class="tlg">Ngành nào cũng làm</span></span><div class="tvp"><div class="trk" id="trk" aria-hidden="true"></div></div></div>
+  <div class="tbar">
   <a class="mark" href="#">Tiệm<span>Web</span><small>phòng mẫu</small></a>
   <a class="zpill" href="https://zalo.me/0948332395" target="_blank" rel="noopener"><b>Zalo</b><span class="txt">Nhắn ngay</span><span class="num">0948 332 395</span></a>
+</div>
 </header>
 
 <section class="hero">
@@ -654,6 +673,18 @@ let tt; function toast(m){const t=$('toast');t.textContent=m;t.hidden=false;clea
 /* ---------- boot ---------- */
 $('plans').innerHTML=PLANS.map(p=>`<div class="plan"><b>${p.name}</b><strong>${p.price}</strong><p>${p.desc}</p></div>`).join('');
 $('dPlans').innerHTML=PLANS.map(p=>`<div class="dplan"><small>${p.name.replace('Gói ','')}</small><b>${p.price}</b></div>`).join('');
+/* the ticker: every kind of shop we build for; the ones with samples on this page are set heavier */
+const TRADES=['Spa','Nail','Salon tóc','Barber','Nha khoa','Phòng khám','Thẩm mỹ viện','Da liễu','Yoga','Gym','Trung tâm tiếng Anh','Lớp học','Mầm non','Bất động sản','Homestay','Khách sạn','Du lịch','Nhà hàng','Quán cà phê','Tiệm bánh','Trà sữa','Mỹ phẩm','Thời trang','Trang sức','Nội thất','Kiến trúc','Studio ảnh','Cưới hỏi','Hoa tươi','Thú cưng','Nông sản','Gốm sứ','Xe điện','Sửa xe','Luật sư','Kế toán','In ấn','Sự kiện'];
+const HOT=new Set(['Spa','Nha khoa','Phòng khám','Lớp học','Bất động sản','Mỹ phẩm']);
+(function ticker(){
+  const one=TRADES.map(t=>`<span${HOT.has(t)?' class="hot"':''}>${t}</span>`).join('');
+  const trk=$('trk'); trk.innerHTML=one+one;
+  const fit=()=>trk.style.setProperty('--td',(trk.scrollWidth/2/(innerWidth<640?42:55)).toFixed(1)+'s');
+  fit(); document.fonts&&document.fonts.ready.then(fit);
+  const tk=$('tick'); tk.addEventListener('touchstart',()=>tk.classList.add('hold'),{passive:true});
+  ['touchend','touchcancel'].forEach(ev=>tk.addEventListener(ev,()=>tk.classList.remove('hold')));
+  $('tick').setAttribute('title',TRADES.join(' · '));
+})();
 function setTop(){document.documentElement.style.setProperty('--toph',topH()+'px');}
 setTop(); renderChips(); buildWall(); syncSaved(); onScroll();
 $('hTap').textContent=hoverMQ.matches?'Bấm vào mẫu':'Chạm vào mẫu';
