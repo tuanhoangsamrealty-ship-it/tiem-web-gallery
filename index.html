@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#C8102E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Phòng mẫu Tiệm Web</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
+<style>
+/* Layout: a vertical full-screen feed — one sample per screen, the page inside its window scrolls itself;
+   ambient backdrop sampled from each sample; action rail on the right; sheet to pick a package.
+   Deliberately single (dark) theme: the samples supply the colour. */
+:root{
+  --night:#8E0B14; --red-hi:#E3242B; --red:#C8102E; --deep:#5E0710; --ink:#FFFFFF; --dim:rgba(255,255,255,.78); --hair:rgba(255,255,255,.28);
+  --gold:#FFD84D; --gold-ink:#8E0B14; --glass:rgba(94,7,16,.42); --paper:#FFFDF8; --paper-ink:#141414; --paper-dim:#6E6862; --paper-line:#EDE6DA;
+  --display:'Bricolage Grotesque','Be Vietnam Pro',system-ui,sans-serif;
+  --cond:'Barlow Condensed','Arial Narrow',sans-serif;
+  --body:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--night);color:var(--ink);font-family:var(--body);overflow:hidden;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:10px}
+
+/* chrome over the feed */
+.chrome{position:fixed;left:0;right:0;top:0;z-index:20;padding-top:calc(env(safe-area-inset-top,0px) + 10px);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  background:linear-gradient(rgba(200,16,46,.92),rgba(200,16,46,0));pointer-events:none}
+.chrome>*{pointer-events:auto}
+.row1{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:560px;margin:0 auto}
+.mark{font-family:var(--cond);font-weight:800;font-size:22px;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;display:flex;align-items:baseline;gap:6px}
+.mark span{color:var(--gold)}
+.mark{font-family:var(--display);text-transform:none;letter-spacing:-.02em;font-size:23px}
+.mark small{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--dim);text-transform:none}
+.bag{height:34px;padding:0 12px;border-radius:999px;background:var(--glass);border:1px solid var(--hair);display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;backdrop-filter:blur(10px)}
+.bag b{min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--gold);color:var(--gold-ink);font-size:12px;display:grid;place-items:center}
+.tabs{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;max-width:560px;margin:8px auto 0;padding-bottom:6px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;font-family:var(--cond);font-weight:700;font-size:17px;letter-spacing:.03em;text-transform:uppercase;color:var(--dim);padding:4px 0;position:relative;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink)}
+.tab[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;border-radius:2px;background:var(--gold)}
+
+/* feed */
+.feed{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;scrollbar-width:none}
+.feed::-webkit-scrollbar{display:none}
+.slide{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;isolation:isolate;background:radial-gradient(120% 70% at 30% 0%,var(--red-hi) 0%,var(--red) 55%,var(--night) 100%)}
+.amb{display:none}
+.slide::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(rgba(94,7,16,0) 62%,rgba(94,7,16,.55))}
+.stagebox{position:absolute;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 90px);bottom:calc(env(safe-area-inset-bottom,0px) + 196px);display:grid;place-items:center;padding:0 max(12px,env(safe-area-inset-right,0px)) 0 max(12px,env(safe-area-inset-left,0px))}
+
+/* the site window */
+.win{position:relative;width:100%;height:100%;max-width:460px;border-radius:18px;overflow:hidden;background:#fff;
+  box-shadow:0 0 0 3px rgba(255,255,255,.95),0 28px 60px -10px rgba(60,0,8,.65);transform:translateZ(0)}
+.win.wide{height:auto;aspect-ratio:1100/906}
+.wbar{position:absolute;left:0;right:0;top:0;height:26px;z-index:2;background:rgba(245,243,239,.96);display:flex;align-items:center;gap:5px;padding:0 9px}
+.wbar i{width:7px;height:7px;border-radius:50%;background:#D5D0C8}
+.wbar span{position:absolute;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;color:#5C574F;white-space:nowrap;max-width:62%;overflow:hidden;text-overflow:ellipsis}
+.pane{position:absolute;left:0;right:0;top:26px;bottom:0;overflow:hidden}
+.pane img{display:block;width:100%;height:auto;will-change:transform}
+.live .pane img{animation:tour var(--dur,16s) cubic-bezier(.45,0,.55,1) .8s infinite alternate}
+@keyframes tour{0%,8%{transform:translateY(0)}92%,100%{transform:translateY(calc(-1 * var(--travel,0px)))}}
+.win:hover .pane img,.win.hold .pane img{animation-play-state:paused}
+
+/* caption + rail */
+.cap{z-index:3;position:absolute;left:max(16px,env(safe-area-inset-left,0px));right:96px;bottom:calc(env(safe-area-inset-bottom,0px) + 26px);display:grid;gap:6px}
+.kicker{font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.kicker b{color:var(--gold);font-weight:800}
+.kicker{color:#fff}
+.name{font-family:var(--display);font-weight:800;font-size:clamp(26px,7.4vw,36px);line-height:1;letter-spacing:-.035em;text-wrap:balance;text-shadow:0 3px 0 rgba(90,0,8,.35)}
+.priceline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px}
+.tag{display:inline-flex;align-items:baseline;gap:5px;padding:5px 11px 7px;border-radius:10px;background:var(--gold);color:var(--gold-ink);font-weight:800;font-size:12px;transform:rotate(-3deg);border:2.5px solid #fff;box-shadow:0 8px 18px rgba(60,0,8,.35)}
+.tag strong{font-family:var(--display);font-weight:800;font-size:24px;line-height:.9;letter-spacing:-.03em}
+.priceline>span:not(.tag){font-size:13px;color:var(--dim)}
+.rail{z-index:3;position:absolute;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 24px);display:grid;gap:14px;justify-items:center}
+.act{display:grid;justify-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--ink);text-shadow:0 1px 2px rgba(0,0,0,.9),0 0 8px rgba(0,0,0,.6)}
+.act i{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--glass);border:1px solid var(--hair);backdrop-filter:blur(10px)}
+.act svg{width:22px;height:22px}
+.act.pick i{background:var(--gold);border:3px solid #fff;color:var(--gold-ink);width:60px;height:60px}
+.act[aria-pressed="true"] i{background:#fff;color:var(--red)}
+.act[aria-pressed="true"] svg path{fill:currentColor}
+.count{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:calc(env(safe-area-inset-top,0px) + 100px);font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:.08em;color:var(--dim);writing-mode:vertical-rl;font-variant-numeric:tabular-nums}
+@media (min-width:600px){.cap{left:calc(50% - 260px)}.rail{right:calc(50% - 270px)}.count{right:calc(50% - 266px)}}
+
+.swipe{color:#fff!important;position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 208px);transform:translateX(-50%);z-index:3;padding:6px 12px;border-radius:999px;background:var(--glass);backdrop-filter:blur(8px);font-size:12px;font-weight:600;color:var(--dim);display:flex;gap:6px;align-items:center;animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{50%{transform:translate(-50%,-6px)}}
+
+/* price slide */
+.end{display:grid;align-content:center;gap:14px;padding:calc(env(safe-area-inset-top,0px) + 96px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 24px) max(16px,env(safe-area-inset-left,0px));background:radial-gradient(120% 70% at 30% 0%,var(--red-hi) 0%,var(--red) 55%,var(--night) 100%)}
+.end>*{width:100%;max-width:520px;margin:0 auto}
+.end h2{font-family:var(--display);font-weight:800;font-size:44px;line-height:1;letter-spacing:-.035em;margin:0;text-shadow:0 3px 0 rgba(90,0,8,.35)}
+.end h2 em{font-style:normal;color:var(--gold)}
+.plans{display:grid;gap:8px}
+.plan{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 14px;border-radius:16px;background:var(--paper);color:var(--paper-ink);box-shadow:0 14px 30px rgba(60,0,8,.3)}
+.plan b{font-weight:700}
+.plan p{grid-column:1/-1;margin:0;font-size:13px;color:var(--paper-dim)}
+.plan strong{font-family:var(--display);font-weight:800;font-size:28px;line-height:1;letter-spacing:-.03em;color:var(--red);grid-row:1}
+.zrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.zbtn{flex:1;min-width:200px;height:56px;border-radius:999px;background:var(--gold);color:var(--gold-ink);box-shadow:0 12px 28px rgba(60,0,8,.35);font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none}
+.zbtn b{height:24px;padding:0 8px;border-radius:999px;background:#0068FF;color:#fff;font-size:12px;display:grid;place-items:center}
+.znum{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.01em;user-select:all}
+.copy{height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--hair);font-size:13px;font-weight:700}
+
+/* close-up reader */
+.reader{position:fixed;inset:0;z-index:40;background:var(--deep);display:grid;grid-template-rows:auto 1fr auto}
+.rbar{display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 8px) max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px))}
+.rbar .t{flex:1;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rbar .t span{font-family:var(--cond);color:var(--gold);letter-spacing:.08em;margin-right:6px}
+.ib{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);flex:none}
+.ib svg{width:20px;height:20px}
+.rscroll{overflow-y:auto;overscroll-behavior:contain;padding:0 max(12px,env(safe-area-inset-right,0px)) 20px max(12px,env(safe-area-inset-left,0px))}
+.rscroll img{display:block;width:100%;max-width:640px;margin:0 auto;border-radius:14px;height:auto;background:#222}
+.rfoot{display:flex;gap:10px;align-items:center;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));border-top:1px solid var(--hair)}
+.rfoot .zbtn{min-width:0}
+
+/* sheet */
+.sheet-wrap{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
+.sheet{color-scheme:light;width:100%;max-width:560px;max-height:92%;overflow-y:auto;background:var(--paper);color:var(--paper-ink);border-radius:22px 22px 0 0;display:grid;gap:14px;
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:up .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes up{from{transform:translateY(40px);opacity:.4}}
+.handle{width:42px;height:5px;border-radius:3px;background:var(--paper-line);justify-self:center}
+.sheet h3{font-family:var(--display);font-weight:800;font-size:30px;line-height:1;letter-spacing:-.03em;margin:0}
+.picked{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.pk{flex:none;display:flex;gap:10px;align-items:center;padding:6px 12px 6px 6px;border-radius:12px;background:#F4EEE4;max-width:240px}
+.pk img{width:38px;height:50px;object-fit:cover;object-position:top;border-radius:7px}
+.pk b{display:block;font-family:var(--cond);font-size:13px;letter-spacing:.1em;color:var(--red)}
+.pk span{display:block;font-weight:700;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.opts{display:grid;gap:8px;border:0;margin:0;padding:0}
+.opts legend{font-weight:700;font-size:13px;color:var(--paper-dim);margin-bottom:6px;padding:0}
+.opt{display:grid;grid-template-columns:20px 1fr auto;gap:10px;align-items:start;padding:12px 14px;border-radius:14px;border:1.5px solid var(--paper-line);cursor:pointer}
+.opt input{margin:2px 0 0;accent-color:var(--red);width:18px;height:18px}
+.opt:has(input:checked){border-color:var(--red);background:#FFF1F2}
+.opt b{font-weight:700}
+.opt p{margin:2px 0 0;font-size:13px;color:var(--paper-dim)}
+.opt strong{font-family:var(--display);font-weight:800;font-size:24px;line-height:1;letter-spacing:-.03em;color:var(--red)}
+.msg label{display:block;font-weight:700;font-size:13px;color:var(--paper-dim);margin-bottom:6px}
+.msg textarea{width:100%;min-height:92px;resize:vertical;border-radius:12px;border:1px solid var(--paper-line);background:#F8F4EE;color:var(--paper-ink);padding:10px 12px;font:inherit;font-size:14px;line-height:1.45}
+.note{margin:0;font-size:12.5px;color:var(--paper-dim);text-align:center}
+.note button{color:var(--red);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 96px);transform:translateX(-50%);z-index:80;padding:10px 16px;border-radius:999px;background:var(--gold);color:var(--gold-ink);font-weight:700;font-size:14px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+@media (prefers-reduced-motion:reduce){.live .pane img,.swipe,.sheet{animation:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="chrome">
+  <div class="row1">
+    <a class="mark" href="#">Tiệm<span>Web</span><small>phòng mẫu</small></a>
+    <button class="bag" type="button" id="bag" aria-label="Mẫu đã lưu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Đã lưu <b id="bagN">0</b></button>
+  </div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+</div>
+
+<main class="feed" id="feed" aria-label="Các mẫu landing page"></main>
+
+<div class="reader" id="reader" role="dialog" aria-modal="true" aria-label="Xem kỹ mẫu" hidden>
+  <div class="rbar"><button class="ib" type="button" id="rClose" aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div class="t" id="rTitle"></div></div>
+  <div class="rscroll" id="rScroll"><img id="rImg" alt=""></div>
+  <div class="rfoot"><button class="zbtn" type="button" id="rPick">Chọn mẫu này</button></div>
+</div>
+
+<div class="sheet-wrap" id="sheetWrap" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="handle"></div>
+    <h3 id="sheetTitle">Chọn gói</h3>
+    <div class="picked" id="picked"></div>
+    <fieldset class="opts" id="opts"></fieldset>
+    <div class="msg"><label for="msgBox">Tin nhắn gửi Tiệm Web</label><textarea id="msgBox"></textarea></div>
+    <a class="zbtn" id="sendBtn" href="https://zalo.me/0948332395" target="_blank" rel="noopener">Sao chép tin nhắn &amp; mở <b>Zalo</b></a>
+    <p class="note">Mở Zalo xong, dán tin nhắn vào khung chat để gửi.<br>Zalo <strong>0948 332 395</strong> · <button type="button" data-copy="0948332395">Sao chép số</button></p>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const DATA={"cats": [{"id": "spa", "name": "Spa & Dưỡng sinh"}, {"id": "clinic", "name": "Phòng khám"}, {"id": "class", "name": "Lớp học"}, {"id": "bds", "name": "Bất động sản"}, {"id": "beauty", "name": "Mỹ phẩm & Bánh"}], "items": [{"code": "SP01", "name": "Mộc An Dưỡng Sinh", "cat": "spa", "w": 900, "h": 1599, "land": false, "tone": "#bfbcaf"}, {"code": "SP02", "name": "Lành Skin Clinic", "cat": "spa", "w": 900, "h": 1350, "land": false, "tone": "#7c8077"}, {"code": "SP03", "name": "Mây Head Spa", "cat": "spa", "w": 887, "h": 1774, "land": false, "tone": "#a7a08f"}, {"code": "SP04", "name": "Trầm Spa", "cat": "spa", "w": 900, "h": 1599, "land": false, "tone": "#3d3a30"}, {"code": "PK01", "name": "Nha khoa Nụ Cười Nhỏ", "cat": "clinic", "w": 900, "h": 1350, "land": false, "tone": "#d6dcdb"}, {"code": "PK02", "name": "Nha khoa Mộc An", "cat": "clinic", "w": 900, "h": 1350, "land": false, "tone": "#cfd5d0"}, {"code": "PK03", "name": "Hạ Lam Skin", "cat": "clinic", "w": 900, "h": 1599, "land": false, "tone": "#a7afaa"}, {"code": "PK04", "name": "Đa khoa Tâm An", "cat": "clinic", "w": 900, "h": 1350, "land": false, "tone": "#d0e0ea"}, {"code": "LH01", "name": "Bee English", "cat": "class", "w": 900, "h": 1122, "land": false, "tone": "#d6d3cb"}, {"code": "LH02", "name": "Hoa Ngữ Live", "cat": "class", "w": 1100, "h": 880, "land": true, "tone": "#e8cab9"}, {"code": "LH03", "name": "Chim Non", "cat": "class", "w": 900, "h": 1125, "land": false, "tone": "#ad969e"}, {"code": "LH04", "name": "Bình Minh Edu", "cat": "class", "w": 900, "h": 1599, "land": false, "tone": "#adadb3"}, {"code": "BD01", "name": "An Nhiên Hồ Tây", "cat": "bds", "w": 900, "h": 1350, "land": false, "tone": "#a5998e"}, {"code": "BD02", "name": "Tùng Lâm Villas", "cat": "bds", "w": 900, "h": 1599, "land": false, "tone": "#75746d"}, {"code": "BD03", "name": "Thanh Hải Residences", "cat": "bds", "w": 900, "h": 1599, "land": false, "tone": "#bdb4ac"}, {"code": "BD04", "name": "Lavender Long Biên", "cat": "bds", "w": 887, "h": 1774, "land": false, "tone": "#93897f"}, {"code": "MP01", "name": "Mỹ phẩm thiên nhiên", "cat": "beauty", "w": 736, "h": 1307, "land": false, "tone": "#ccc5b4"}, {"code": "MP02", "name": "Mỹ phẩm chăm da", "cat": "beauty", "w": 675, "h": 1200, "land": false, "tone": "#c0bfae"}]};
+const PLANS=[
+  {id:'co-ban',name:'Gói cơ bản',price:'599K',desc:'Đầy đủ chức năng, thiết kế cao cấp. Trình bày sản phẩm, dịch vụ chuẩn quy trình bán hàng.'},
+  {id:'nang-cao',name:'Gói nâng cao',price:'899K',desc:'Thiết kế cá tính theo tinh thần dịch vụ và thương hiệu. Kể chuyện bằng website độc đáo.'},
+  {id:'cao-cap',name:'Gói cao cấp',price:'1.299K',desc:'Thiết kế độc quyền, tư vấn sâu cách kể chuyện. Trải nghiệm đặt lịch tinh tế, tăng nhận diện.'}];
+const SHORT={spa:'Spa',clinic:'Phòng khám',class:'Lớp học',bds:'Bất động sản',beauty:'Mỹ phẩm'};
+const $=id=>document.getElementById(id);
+const byCode=Object.fromEntries(DATA.items.map(i=>[i.code,i]));
+const catName=Object.fromEntries(DATA.cats.map(c=>[c.id,c.name]));
+const slug=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase().replace(/[^a-z0-9]/g,'')+'.vn';
+const I={
+  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  zoom:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',
+  link:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>'};
+
+let saved=[];
+try{saved=JSON.parse(localStorage.getItem('tw-saved')||'[]').filter(c=>byCode[c]);}catch(e){}
+const persist=()=>{try{localStorage.setItem('tw-saved',JSON.stringify(saved));}catch(e){}};
+const isSaved=c=>saved.includes(c);
+function toggleSave(c){saved=isSaved(c)?saved.filter(x=>x!==c):[...saved,c];persist();syncSaved();toast(isSaved(c)?`Đã lưu ${c}`:`Bỏ lưu ${c}`);}
+function syncSaved(){$('bagN').textContent=saved.length;document.querySelectorAll('[data-save]').forEach(b=>b.setAttribute('aria-pressed',isSaved(b.dataset.save)));}
+
+/* tabs */
+let filter='all';
+function renderTabs(){
+  const t=[{id:'all',n:'Tất cả'},...DATA.cats.map(c=>({id:c.id,n:SHORT[c.id]||c.name}))];
+  $('tabs').innerHTML=t.map(x=>`<button class="tab" role="tab" type="button" data-tab="${x.id}" aria-selected="${x.id===filter}">${x.n}</button>`).join('');
+}
+$('tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(!b)return;filter=b.dataset.tab;renderTabs();renderFeed();$('feed').scrollTop=0;b.scrollIntoView({inline:'center',block:'nearest'});});
+
+/* feed */
+let shown=[];
+function slide(i,k){
+  return `<section class="slide" data-code="${i.code}" data-k="${k}" aria-label="${i.name}">
+    <div class="amb" style="background-image:url(img/${i.code}-bg.webp);background-color:${i.tone}"></div>
+    <div class="stagebox"><div class="win${i.land?' wide':''}" data-zoom="${i.code}" role="button" tabindex="0" aria-label="Xem kỹ ${i.name}">
+      <div class="wbar"><i></i><i></i><i></i><span>${slug(i.name)}</span></div>
+      <div class="pane"><img data-src="img/${i.code}.webp" alt="Mẫu ${i.name}" width="${i.w}" height="${i.h}" decoding="async"></div></div></div>
+    <div class="cap"><div class="kicker"><b>${i.code}</b> · ${catName[i.cat]}${i.land?' · Máy tính':''} · ${k+1}/${shown.length}</div>
+      <div class="name">${i.name}</div>
+      <div class="priceline"><span class="tag">Từ <strong>599K</strong></span><span>Làm lại theo tên shop bạn</span></div></div>
+    <div class="rail">
+      <button class="act" type="button" data-save="${i.code}" aria-pressed="${isSaved(i.code)}"><i>${I.heart}</i>Lưu</button>
+      <button class="act" type="button" data-zoom="${i.code}"><i>${I.zoom}</i>Xem kỹ</button>
+      <button class="act" type="button" data-share="${i.code}"><i>${I.link}</i>Gửi link</button>
+      <button class="act pick" type="button" data-pick="${i.code}"><i>${I.check}</i>Chọn</button>
+    </div>
+    ${k===0?'<div class="swipe"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Vuốt lên xem mẫu tiếp</div>':''}
+  </section>`;
+}
+function endSlide(){
+  return `<section class="slide end" aria-label="Bảng giá">
+    <h2>Chọn mẫu.<br><em>Làm theo shop bạn.</em></h2>
+    <div class="plans">${PLANS.map(p=>`<div class="plan"><b>${p.name}</b><strong>${p.price}</strong><p>${p.desc}</p></div>`).join('')}</div>
+    <div class="zrow"><a class="zbtn" href="https://zalo.me/0948332395" target="_blank" rel="noopener">Nhắn <b>Zalo</b></a>
+      <span class="znum">0948 332 395</span><button class="copy" type="button" data-copy="0948332395">Sao chép số</button></div>
+  </section>`;
+}
+function renderFeed(){
+  shown=filter==='all'?DATA.items:DATA.items.filter(i=>i.cat===filter);
+  $('feed').innerHTML=shown.map(slide).join('')+endSlide();
+  observe();
+}
+
+/* activate the slide in view: load its image (and the next), start the self-scroll */
+let io;
+function observe(){
+  io&&io.disconnect();
+  io=new IntersectionObserver(es=>es.forEach(en=>{
+    const s=en.target; if(!en.isIntersecting){s.classList.remove('live');return;}
+    const k=+s.dataset.k; [k,k+1].forEach(j=>{const im=document.querySelector(`.slide[data-k="${j}"] .pane img`); if(im&&!im.src){im.src=im.dataset.src;}});
+    const im=s.querySelector('.pane img'); if(!im) return;
+    const go=()=>{const pane=im.parentElement; const travel=Math.max(0,im.getBoundingClientRect().height-pane.clientHeight);
+      s.style.setProperty('--travel',travel+'px'); s.style.setProperty('--dur',Math.max(8,travel/42)+'s'); s.classList.add('live');};
+    im.complete&&im.naturalWidth?go():im.addEventListener('load',go,{once:true});
+    try{history.replaceState(null,'','#'+s.dataset.code);}catch(e){}
+  }),{root:$('feed'),threshold:.6});
+  document.querySelectorAll('.slide[data-k]').forEach(s=>io.observe(s));
+}
+
+/* actions */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-save],[data-zoom],[data-share],[data-pick],[data-copy]'); if(!t) return;
+  if(t.dataset.save) toggleSave(t.dataset.save);
+  else if(t.dataset.zoom) openReader(t.dataset.zoom);
+  else if(t.dataset.share) shareLink(t.dataset.share);
+  else if(t.dataset.pick) openSheet([t.dataset.pick,...saved.filter(c=>c!==t.dataset.pick)]);
+  else if(t.dataset.copy) copy(t.dataset.copy,'Đã sao chép số Zalo');
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&e.target.matches('.win')) openReader(e.target.dataset.zoom);
+  if(e.key==='Escape'){if(!$('sheetWrap').hidden)closeSheet();else if(!$('reader').hidden)closeReader();}
+});
+document.addEventListener('pointerdown',e=>{const w=e.target.closest('.win'); if(w) w.classList.add('hold');});
+document.addEventListener('pointerup',()=>document.querySelectorAll('.win.hold').forEach(w=>w.classList.remove('hold')));
+$('bag').onclick=()=>{if(!saved.length){toast('Bấm ♡ Lưu để gom các mẫu bạn thích');return;} openSheet(saved.slice());};
+
+function shareLink(code){
+  const base=(location.href.split('#')[0]);
+  copy(base+'#'+code,`Đã sao chép link mẫu ${code}`);
+}
+
+/* reader */
+let readerCode=null;
+function openReader(code){
+  const i=byCode[code]; readerCode=code;
+  $('rTitle').innerHTML=`<span>${code}</span>${i.name}`;
+  $('rImg').src=`img/${code}.webp`; $('rImg').alt=`Toàn trang mẫu ${i.name}`; $('rImg').width=i.w; $('rImg').height=i.h;
+  $('reader').hidden=false; $('rScroll').scrollTop=0; $('rClose').focus({preventScroll:true});
+}
+function closeReader(){$('reader').hidden=true;}
+$('rClose').onclick=closeReader;
+$('rPick').onclick=()=>openSheet([readerCode,...saved.filter(c=>c!==readerCode)]);
+
+/* sheet */
+let sheetCodes=[],plan='co-ban';
+function openSheet(codes){
+  sheetCodes=codes;
+  $('sheetTitle').textContent=codes.length>1?`Gửi ${codes.length} mẫu`:'Chọn gói';
+  $('picked').innerHTML=codes.map(c=>`<div class="pk"><img src="img/${c}-t.webp" alt=""><div style="min-width:0"><b>${c}</b><span>${byCode[c].name}</span></div></div>`).join('');
+  $('opts').innerHTML='<legend>Gói website · giá cho 1 trang</legend>'+PLANS.map(p=>`<label class="opt"><input type="radio" name="plan" id="plan-${p.id}" value="${p.id}" ${p.id===plan?'checked':''}><div><b>${p.name}</b><p>${p.desc}</p></div><strong>${p.price}</strong></label>`).join('');
+  writeMsg(); $('sheetWrap').hidden=false;
+}
+function writeMsg(){
+  const p=PLANS.find(x=>x.id===plan), line=c=>`${c} – ${byCode[c].name}`;
+  let m=`Chào Tiệm Web! Mình muốn làm website theo mẫu ${line(sheetCodes[0])}, ${p.name.toLowerCase()} ${p.price}.`;
+  if(sheetCodes.length>1) m+=`\nMẫu mình cũng thích: ${sheetCodes.slice(1).map(line).join(', ')}.`;
+  $('msgBox').value=m+`\nTên shop của mình: `;
+}
+$('opts').addEventListener('change',e=>{if(e.target.name==='plan'){plan=e.target.value;writeMsg();}});
+function closeSheet(){$('sheetWrap').hidden=true;}
+$('sheetWrap').addEventListener('click',e=>{if(e.target===$('sheetWrap'))closeSheet();});
+$('sendBtn').addEventListener('click',()=>copy($('msgBox').value,'Đã sao chép tin nhắn, dán vào Zalo để gửi'));
+
+function copy(text,ok){
+  const fb=()=>{const ta=$('msgBox'); if(!$('sheetWrap').hidden&&ta.value===text){ta.focus();ta.select();} toast('Bấm giữ để sao chép: '+text.slice(0,40));};
+  try{navigator.clipboard.writeText(text).then(()=>toast(ok),fb);}catch(e){fb();}
+}
+let tt; function toast(m){const t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2200);}
+
+/* keyboard paging on desktop */
+document.addEventListener('keydown',e=>{
+  if(!$('reader').hidden||!$('sheetWrap').hidden) return;
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();const f=$('feed');f.scrollBy({top:(e.key==='ArrowDown'?1:-1)*f.clientHeight,behavior:'smooth'});}
+});
+
+renderTabs(); renderFeed(); syncSaved();
+const start=(location.hash||'').slice(1).toUpperCase();
+if(byCode[start]){const s=document.querySelector(`.slide[data-code="${start}"]`); if(s) $('feed').scrollTop=s.offsetTop;}
+</script>
+
+</body>
+</html>
