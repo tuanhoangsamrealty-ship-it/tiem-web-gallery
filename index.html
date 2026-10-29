@@ -243,7 +243,7 @@ svg{display:block}
   .spos{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);border-top:1px solid var(--hair);padding-top:14px;margin-top:8px}
 }
 @media (min-width:1024px) and (max-height:760px){.name{font-size:34px}.dpick,.dsq{height:50px}.dsq{width:50px}.dplans{display:none}}
-@media (prefers-reduced-motion:reduce){.trk{animation:none}.tvp{overflow-x:auto;scrollbar-width:none}.tile{transition:none}.tw{transition:none}.sheet,.savebar{animation:none}}
+@media (prefers-reduced-motion:reduce){.tile{transition:none}.tw{transition:none}.sheet,.savebar{animation:none}}
 
 /* ---------- light theme: white page, black + red type; the ticker keeps its dark band ---------- */
 body{background:#fff}
@@ -550,7 +550,8 @@ function carouselTick(now){
     $('prog').style.transform='scaleX(0)';
     return;
   }
-  const run=!reduce&&!C.hover&&now>C.userUntil&&C.visible&&!document.hidden&&$('sheetWrap').hidden&&N()>1;
+  /* keeps running under 'reduce motion' too (Windows turns that on when animation effects are off) */
+  const run=!C.hover&&now>C.userUntil&&C.visible&&!document.hidden&&$('sheetWrap').hidden&&N()>1;
   if(!run){C.next=Math.max(C.next,now+400); return;}
   $('prog').style.transform=`scaleX(${Math.min(1,1-(C.next-now)/DWELL).toFixed(3)})`;
   if(now>=C.next) goTo(C.pos+1);
