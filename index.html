@@ -79,8 +79,9 @@ svg{display:block}
 .wbar i{width:clamp(5px,1.35cqw,10px);height:clamp(5px,1.35cqw,10px);border-radius:50%;background:#D5D0C8}
 .wbar span{position:absolute;left:50%;transform:translateX(-50%);font-size:clamp(8px,1.55cqw,12px);font-weight:600;color:#5C574F;white-space:nowrap;max-width:60%;overflow:hidden;text-overflow:ellipsis}
 .tw .wbar span{display:none}
-.tpane{position:relative;display:block;aspect-ratio:3/4;overflow:hidden;background:#EFEBE4}
-.tpane img{display:block;width:100%;height:auto;will-change:transform}
+.tpane{position:relative;display:block;aspect-ratio:3/4;overflow:hidden;background:#EFEBE4 no-repeat center top/cover}
+.tpane img{display:block;width:100%;height:auto;will-change:transform;opacity:0;transition:opacity .35s}
+.tpane img.ok{opacity:1}
 .tpane img.land{position:absolute;inset:0;height:100%;object-fit:cover;object-position:left top}
 .tcode{position:absolute;left:8px;top:calc(clamp(14px,4.2cqw,32px) + 8px);padding:2px 7px;border-radius:6px;background:rgba(20,14,12,.72);color:#fff;font-family:var(--cond);font-weight:700;font-size:12.5px;letter-spacing:.06em}
 .tw::after{content:attr(data-cta);position:absolute;left:50%;bottom:10px;transform:translate(-50%,10px);opacity:0;white-space:nowrap;
@@ -328,6 +329,9 @@ function mixFor(n){
 const slug=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase().replace(/[^a-z0-9]/g,'')+'.vn';
 const HEART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* weak connection or data saver: stay on the light images, skip the full-size ones */
+const NET=navigator.connection||{}, SLOW=!!(NET.saveData||/(^|-)2g/.test(NET.effectiveType||''));
+const PH={"SP01":"data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAwAgCdASoMABAAAsBMJYwCdAYuv2rUjZ9hwAD+65RWPQYZq6z3stGglOYwu8gtZ3uhoZQxHs5av7wmMITX78zALfZkAV4+oijorMsNu3aDnm0vGLu1VWLzqY7QicxBEcqFUMOt8AA=","SP02":"data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAAAwAgCdASoMABAAAsBMJZACdAYtVa4bUIfe4AD+3gpYCSYWXq2UTe9T4NXgyjoxTewtBHVEYHVMRCjSoIYvt1kmV0N/Z+p9SdGJRZ0Kff/2RO05p2wnrxGDq06KpY1tn2ZKGBAyk/NDgZ3bWWFOV1+0LD2gzZgNB/5TIAAA","SP03":"data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAABQAgCdASoMABAAAsBMJQBOgMVu4SKhqf8S5LwA3mfEY4dZT8hGhtg/A2/4yTtsYyMAhe2wMSx6bys6C8Y8Vknra3thPgQF1wGVHiY57oUl7RYzqkCr0kCl8L66oBf/9gMPuN7JtPYYRVW+HQfEv31AAAA=","SP04":"data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAQAgCdASoMABAAAsBMJQBWECYjAt4ZtAgAAP7u8nI9Ht3cSfPaSeshQFe+DEjTb1W1w6HHRt1DhUinJPgYxJxrbRT69rtnu/B8TyeNHufEt2M9dnLTxkiUjMfcJrVJO0Ppq21FxgAAAA==","PK01":"data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwAgCdASoMABAAAsBMJZQC7AEDpW6l4paUAAD+9jIUPHzswY3jZAV39+CtAG9hUuJIRRPfIhRFHyTRlPDtSNeKxSAjDbfuCqIFCmDNtj0WZstBoqawXNfZSqwAVYGbqO/VVWh1xQAAAA==","PK02":"data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAwAgCdASoMABAAAsBMJZQAD5DwjS1oXA6iYAD+8BQ8uuzHo/RnX6iZxf2dNajhNArQBC+bQVvn7uzkgo+wvyCpbw9gSB1mrWZ2MGjShfZ2aAVgXFarlGIHIMucvQIA","PK03":"data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAAAQAgCdASoMABAAAsBMJQAB8mYupKx7FT2YAP1T6u2n7k12QaLXBlJNHqY1/JAzYnLx3vXoqmKsOU5ulrzhscxMgSI29DIdTAmnRuUqjqMjTO/Io+zUugpPHoV+ASRALwXVUSNb55ORo+Uppf++pZrp9lHmFzKAAAA=","PK04":"data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAACwAQCdASoMABAAAsBMJZgCdADWu4oIAP71JLgHjKlBZjeffNTWCfroP5HYljLul3HURVik7DoF5yD9GeL/8DtpIjKjTjQ+XPUMyFF4Ca7IEyAFjyUyFZ/7PAiqWVF6BtpN3KA7kWfAAA==","LH01":"data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABwAgCdASoMABAAAsBMJYwCdAYtVyA3/mv2PeAAAP71JL/bQWGajjum0gHHiqzgPcu4raHii09YNzA1J9Uk1/gJIuTTin02xxTRc7e/L0NNMkYn5kbmCZhl3lkqOGGM+Dczj+iZGlLMmA2xT1hP1PAA","LH02":"data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAADQAgCdASoMABAAAsBMJbACdEf/3ZmQWpfunSrDm+tAAP73U6k/CRGRQxmm9NofrmcJUObzvcvsGoX+T5ry+HzZzozhoDEH8+FL+7whRZoDZffveGhJ782syogzhOwbD21ACBmJ8JxwIjOyYRa9cuO8LS2TYAAA","LH03":"data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAABQAgCdASoMABAAAsBMJagCdAYv/wRpzh+78gAA/pvzjxMvmVcLBBrGV1dEjan8h6pkqn4Y0uhQiSCwwFi/kmYF78JVbSP/nvTtIvN2u8LFqLq1Pka4usyVc/7dhoj0i6I2949HpavzENnmsDwj0Lebr7D9EgCPsEVLWWgBPgAAAA==","LH04":"data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAABQAgCdASoMABAAAsBMJQBOgMVk4HPAeOv1Y/gA/pG/d/KwbEkLP5QvQhYfxgfYKdwbwMHTGq+31ub06Dcp1wPHn5ISfsxTv8nT5xydzB5FndUXV7FJt/3ppFZTvo/UBJrT4shsCPAEvkAdYL5DTdziQGPUWso4YSTgOoAA","BD01":"data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAwAgCdASoMABAAAsBMJYwCdAE22xTjyRQjgAD+8yeRlw62BHZJ07kJDlHe7N3X9i5HmdPlSJZ7nEtaVjMPK1fME9ZtpcIK3M3T6TdzBkfrNdir+oM97DEP9QwqLQI/a34JKY013xBVpto6okAAAA==","BD02":"data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQAgCdASoMABAAAsBMJZwC/OEQyhaXmktsAP6EG/j8V+aTT97CQnkWs+w3khOj5+3j6HVKGbmmNzAkSUHcnOeRRmVz++2R/ACXzWNoEPLsfYPwNOk7H7dorrYTKnZgAAA=","BD03":"data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADQAQCdASoMABAAAsBMJZQCdADcR2kIAAD+884nJHyLQDhLJaFgm0lv6q7vqTvHMbG2VHXLUhoGO67Yu+M4y7liIwz+VoLJ23LL91oilKAPXf9n/mR4WNjsRmXpxqAA","BD04":"data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAwAgCdASoMABAAAsBMJYwCdAEDe89GPQvY8AD+4V38GLIKSmNc43NFxCBATjx6puCQpDtWPAtt8lvboRBZXioyV5noqDQd3AoBfUANC0tUsvy457yghNJa42aD+pZH1RR1d+zxjlvRN5EgAAA=","MP01":"data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAwAgCdASoMABAAAsBMJQBOgO4FwMbifoOoNAD+8eqnVn/XPOPCKFxtk44VzHUuIA7/HQL/SPYjqblCnvLrpZPtPcipqCqOm/lfuifsBSLSGMuUW21XscwqYEZit3J+j6GgAAAA","MP02":"data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAABQAgCdASoMABAAAsBMJQBOgMV9yttIMk83eAAA/rI+9BlD0lSZIchebiNv5eQMt8/mhiA8v9APURQ887dO3mv3h8Vd/1ntru9b0p054bwe5qSf8uZqazsDmI2KTQfDH3QAAA=="};
 const hoverMQ=matchMedia('(hover:hover) and (pointer:fine)');
 const ease='cubic-bezier(.2,.75,.15,1)';
 
@@ -359,13 +363,13 @@ const topH=()=>$('top').offsetHeight;
 
 /* ---------- wall ---------- */
 const nColsFor=()=>innerWidth<640?2:innerWidth<1024?3:4;
-let nCols=0, rio;
+let nCols=0, rio, lio;
 function tileHTML(i,k){
   const cta=hoverMQ.matches?'Bấm để xem trọn trang':'Chạm để xem trọn trang';
   return `<article class="tile" data-code="${i.code}" style="--d:${(k%nCols)*50}ms">
     <button class="tw" type="button" data-open="${i.code}" data-cta="${cta}" aria-label="Xem trọn trang mẫu ${i.name}">
       <span class="wbar"><i></i><i></i><i></i></span>
-      <span class="tpane"><img src="img/${i.code}-p.webp" alt="Mẫu ${i.name}"${i.land?' class="land"':''} width="560" height="${Math.round(560*i.h/i.w)}" decoding="async"${k>3?' loading="lazy"':''}></span>
+      <span class="tpane" style="background-color:${i.tone};background-image:url(${PH[i.code]})"><img data-src="img/${i.code}-p.webp" alt="Mẫu ${i.name}"${i.land?' class="land"':''} width="480" height="${Math.round(480*i.h/i.w)}" decoding="async"></span>
       <span class="tcode">${i.code}</span></button>
     <div class="tmeta"><div><small>${SHORT[i.cat]}</small><b>${i.name}</b></div>
       <button class="heart" type="button" data-save="${i.code}" aria-pressed="${isSaved(i.code)}" aria-label="Lưu mẫu ${i.name}">${HEART}</button></div>
@@ -384,6 +388,13 @@ function buildWall(){
   else{
     rio=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');rio.unobserve(en.target);needPick=true;}}),{rootMargin:'0px 0px 6% 0px',threshold:.01});
     tiles.forEach(t=>rio.observe(t));
+  }
+  lio&&lio.disconnect();
+  const load=im=>{if(im.src)return; im.addEventListener('load',()=>im.classList.add('ok'),{once:true}); im.src=im.dataset.src;};
+  if(!('IntersectionObserver' in window)){document.querySelectorAll('.tpane img').forEach(load);}
+  else{
+    lio=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){load(en.target);lio.unobserve(en.target);}}),{rootMargin:'0px 0px 100% 0px'});
+    document.querySelectorAll('.tpane img').forEach(im=>lio.observe(im));
   }
   needPick=true;
 }
@@ -444,8 +455,9 @@ const flatKF=rad=>({transform:'translate(0px,0px) scale(1)',clipPath:`inset(0px 
 function fillV(k){
   vIdx=k; const i=vList[k];
   vImg.width=i.w; vImg.height=i.h; vImg.alt=`Toàn trang mẫu ${i.name}`; vImg.src=`img/${i.code}-p.webp`;
-  const full=new Image(); full.src=`img/${i.code}.webp`;
-  (full.decode?full.decode():new Promise(r=>full.onload=r)).then(()=>{if(vOpen&&vList[vIdx]===i) vImg.src=full.src;}).catch(()=>{});
+  if(!SLOW){const full=new Image(); full.src=`img/${i.code}.webp`;
+    (full.decode?full.decode():new Promise(r=>full.onload=r)).then(()=>{if(vOpen&&vList[vIdx]===i) vImg.src=full.src;}).catch(()=>{});}
+  vImg.style.backgroundColor=i.tone;
   vPane.classList.toggle('land',!!i.land);
   $('vUrl').textContent=slug(i.name);
   $('vCode').textContent=`${i.code} · ${SHORT[i.cat]}`; $('vName').textContent=i.name;
@@ -456,7 +468,7 @@ function fillV(k){
   document.querySelectorAll('[data-vstep="1"]').forEach(b=>b.disabled=k===vList.length-1);
   document.querySelectorAll('[data-vsave]').forEach(b=>b.setAttribute('aria-pressed',isSaved(i.code)));
   vPane.scrollTop=0; Object.assign(V,{pos:0,dir:1,wait:performance.now()+1500});
-  [vList[k+1],vList[k-1]].forEach(n=>{if(n){const p=new Image();p.src=`img/${n.code}-p.webp`;}});
+  if(!SLOW)[vList[k+1],vList[k-1]].forEach(n=>{if(n){const p=new Image();p.src=`img/${n.code}-p.webp`;}});
 }
 function openV(code,fromTile){
   if(vOpen||animating) return;
